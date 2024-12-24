@@ -6,6 +6,9 @@ use App\Http\Controllers\PemasukanController;
 
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
+use App\Http\Controllers\TransactionController;
+
+// Route ke halaman utama
 Route::get('/', function () {
     return redirect()->route('pemasukan.index');
 });

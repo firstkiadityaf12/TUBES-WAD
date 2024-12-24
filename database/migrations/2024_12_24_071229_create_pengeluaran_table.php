@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('sumber_pengeluaran');
             $table->float('jumlah_pengeluaran');
             $table->string('deskripsi');
-            $table->integer('id_akun_bank');
+            $table->unsignedBigInteger('id_akun_bank');
             $table->timestamps();
+
+            $table->foreign('id_akun_bank')->references('id')->on('akun_banks')->onDelete('cascade');
         });
     }
 

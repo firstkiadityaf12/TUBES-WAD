@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemasukan;
-use App\Models\Akun_Bank;
+use App\Models\Bankaccount;
 use Illuminate\Http\Request;
 
 class PemasukanController extends Controller
@@ -32,7 +32,7 @@ class PemasukanController extends Controller
     {
         //
         $nav = 'Tambah Pemasukan';
-        $akun_banks = Akun_Bank::all(); // Fetch all available Akun_Bank
+        $akun_banks = Bankaccount::all(); // Fetch all available Akun_Bank
         return view('pemasukan.create', compact('nav', 'akun_banks'));
     }
 
@@ -73,7 +73,7 @@ class PemasukanController extends Controller
     {
         //
         $pemasukan = Pemasukan::findOrFail($id);
-        $akun_banks = Akun_Bank::all();
+        $akun_banks = Bankaccount::all();
         $nav = 'Edit Pemasukan';
         return view('pemasukan.edit', compact('pemasukan', 'akun_banks', 'nav'));
     }

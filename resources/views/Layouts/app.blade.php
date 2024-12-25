@@ -17,14 +17,18 @@
             background-color: white;
             border-radius: 15px;
             padding: 40px;
-            margin-top: 20px;
+            margin-top: 7px;
+            margin-right: 7px;
+            height: 100vh;
         }
         .sidebar {
             background-color: red;
+            margin: 7px;
             color: #ffffff;
             border-radius: 12px;
             height: 100vh;
-            padding: 20px;
+            width: 250px;
+            padding: 5px;
             position: sticky;
             top: 0;
         }
@@ -76,11 +80,29 @@
         <div class="sidebar">
             <h4>BUKU SISTA</h4>
             <ul class="nav flex-column">
+                <!-- Pemasukan -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('pemasukan.index') }}"><i class="fas fa-dollar-sign"></i> Pemasukan</a>
                 </li>
+                <!-- Pengeluaran -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('transactions.index') }}"><i class="fas fa-credit-card"></i> Pengeluaran</a>
+                    <a class="nav-link" href="{{ route('pengeluaran.index') }}"><i class="fas fa-credit-card"></i> Pengeluaran</a>
+                </li>
+                <!-- Transaksi -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('transactions.index') }}"><i class="fas fa-credit-card"></i> Transaksi</a>
+                </li>
+                <!-- Bank Account -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('akun_banks.index') }}"><i class="fas fa-credit-card"></i> Akun Bank</a>
+                </li>
+                <!-- Tagihan -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('tagihan.index') }}"><i class="fas fa-credit-card"></i> Tagihan</a>
+                </li>
+                <!-- Laporan Keuangan -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('transactions.index') }}"><i class="fas fa-credit-card"></i> Laporan Keuangan</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Tentang</a>

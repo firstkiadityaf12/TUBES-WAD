@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>{{ $nav }}</h1>
-    <a href="{{ route('pemasukan.create') }}" class="btn btn-success mb-3">Tambah Pemasukan</a>
+    <a href="{{ route('pengeluaran.create') }}" class="btn btn-success mb-3">Tambah Pemasukan</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($pemasukans as $pemasukan)
+            @foreach($pengeluarans as $pengeluaran)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $pemasukan->tanggal_pemasukan }}</td>
@@ -24,9 +24,9 @@
                 <td>{{ $pemasukan->jumlah_pemasukan }}</td>
                 <td>{{ $pemasukan->akunBank->nama_bank ?? '-' }}</td>
                 <td>
-                    <a href="{{ route('pemasukan.show', $pemasukan->id) }}" class="btn btn-info btn-sm">Lihat</a>
-                    <a href="{{ route('pemasukan.edit', $pemasukan->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('pemasukan.destroy', $pemasukan->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('pengeluaran.show', $pengeluaran->id) }}" class="btn btn-info btn-sm">Lihat</a>
+                    <a href="{{ route('pengeluaran.edit', $pengeluaran->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('pengeluaran.destroy', $pengeluaran->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>

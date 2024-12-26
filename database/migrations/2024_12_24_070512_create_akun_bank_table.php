@@ -24,18 +24,6 @@ return new class extends Migration
     }
 
     /**
-     * Varieble akun bank
-     * id_bank integer
-     * nama_bank string
-     * nomor_rekening integer
-     * nama_pemilik string
-     * saldo float
-     * tanggal_ditambahkan string
-     * tanggal_diubah string
-     * 
-     */
-
-    /**
      * Reverse the migrations.
      */
     public function down(): void

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use Illuminate\Routing\Controller;
 use App\Models\Pengeluaran;
 use App\Models\Akun_Bank;
+=======
+use App\Models\Pengeluaran;
+>>>>>>> 9d48a8d32f087c824acdcbb00fd9bd95326cc704
 
 class PengeluaranController extends Controller
 {
@@ -66,8 +70,13 @@ class PengeluaranController extends Controller
 
     public function hapusPengeluaran(Pengeluaran $pengeluarans){
         $pengeluarans ->delete();
+<<<<<<< HEAD
 
         return redirect()->route(pengeluaran.index)->with('success', 'Pengeluaran Berhasil Dihapus');
+=======
+        
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
+>>>>>>> 9d48a8d32f087c824acdcbb00fd9bd95326cc704
     }
 
 }

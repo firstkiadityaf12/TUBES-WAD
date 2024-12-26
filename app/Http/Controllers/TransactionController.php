@@ -12,7 +12,17 @@ class TransactionController extends Controller
     {
         $transactions = TransaksiKeuangan::orderBy('tanggal_transaksi', 'desc')->get();
         $totalTransactions = $transactions->count();
-        return view('transactions.index', compact('transactions', 'totalTransactions'));
+        $successfulTransactions = $transactions->where('status', 'berhasil')->count();
+        $pendingTransactions = $transactions->where('status', 'pending')->count();
+        $failedTransactions = $transactions->where('status', 'gagal')->count();
+        
+        return view('transactions.index', compact(
+            'transactions', 
+            'totalTransactions', 
+            'successfulTransactions', 
+            'pendingTransactions', 
+            'failedTransactions'
+        ));
     }
 
     public function create()
@@ -76,20 +86,16 @@ class TransactionController extends Controller
     }
 
     public function search(Request $request)
-{
+    {
     $query = $request->get('query'); 
 
-    // Gunakan query builder Eloquent untuk pencarian yang lebih aman dan efisien
     $transactions = TransaksiKeuangan::where('deskripsi', 'like', '%' . $query . '%')
                                      ->orWhere('kategori', 'like', '%' . $query . '%')
                                      ->orderBy('tanggal_transaksi', 'desc')
                                      ->get();
 
-    // Hitung jumlah transaksi yang ditemukan
     $totalTransactions = $transactions->count();
-
-    // Kembalikan ke halaman transaksi dengan data transaksi yang ditemukan
     return view('transactions.index', compact('transactions', 'totalTransactions', 'query'));
-}
+    }
 
 }

@@ -19,6 +19,9 @@ Route::get('pemasukan/{pemasukan}/read', [PemasukanController::class, 'read'])->
 
 // Routing API Pengeluaran
 Route::resource('pengeluaran', PengeluaranController::class);
+Route::get('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'show'])->name('pengeluaran.show');
+Route::get('/pengeluaran/{pengeluaran}/edit', [PengeluaranController::class, 'edit'])->name('pengeluaran.edit');
+
 
 // Routing API Transaction
 Route::get('/transactions', [TransactionController::class, 'index']) -> name('transactions.index');

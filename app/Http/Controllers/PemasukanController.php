@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pemasukan;
 use App\Models\Akun_Bank;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class PemasukanController extends Controller
 {

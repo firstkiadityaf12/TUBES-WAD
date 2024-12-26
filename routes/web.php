@@ -1,11 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LaporanKeuanganController;
+
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\LaporanKeuanganController;
+
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
 Route::get('/', function () {
@@ -18,6 +22,9 @@ Route::get('pemasukan/{pemasukan}/read', [PemasukanController::class, 'read'])->
 
 // Routing API Pengeluaran
 Route::resource('pengeluaran', PengeluaranController::class);
+Route::get('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'show'])->name('pengeluaran.show');
+Route::get('/pengeluaran/{pengeluaran}/edit', [PengeluaranController::class, 'edit'])->name('pengeluaran.edit');
+
 
 // Routing API Transaction
 Route::resource('transactions', TransactionController::class);
@@ -33,7 +40,9 @@ Route::get('/transactions/search', [TransactionController::class, 'search'])->na
 // Routing API Bank Account
 Route::resource('akun_banks', BankAccountController::class);
 
+
 // Routing API Tagihan
 Route::resource('tagihan', TagihanController::class);
 
 // Routing API Laporan
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bankaccount;
 
 class BankAccountController extends Controller
 {
@@ -13,7 +14,7 @@ class BankAccountController extends Controller
     {
         $bankaccounts = Bankaccount::all();
         $nav = 'Bank Account';
-        return view('akun_banks.index', compact('bankaccounts', 'nav'));
+        return view('bankaccounts.index', compact('bankaccounts', 'nav'));
     }
 
     /**
@@ -23,13 +24,13 @@ class BankAccountController extends Controller
     {
         //create
         $nav = 'Tambah Bank Account';
-        return view('akun_banks.create', compact('nav'));
+        return view('bankaccounts.create', compact('nav'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BankAccountRequest $request)
+    public function store(Bankaccount $request)
     {
         $validateData = $request->validate([
             'nama_bank' => 'required|string|max:255',
@@ -40,8 +41,8 @@ class BankAccountController extends Controller
             'tanggal_diubah' => 'required|string|max:255',
         ]);
 
-        BankAccountRequest::create($validateData);
-        return redirect()->route('akun_banks.index')->with('success','Bank Account berhasil ditambahkan');
+        Bankaccount::create($validateData);
+        return redirect()->route('bankaccounts.index')->with('success','Bank Account berhasil ditambahkan');
     }
 
     /**
@@ -51,7 +52,7 @@ class BankAccountController extends Controller
     {
         //detail bank account
         $nav = 'Detail Bank Account'.$bankaccount->nama_bank;
-        return view('akun_banks.show', compact('bankaccount', 'nav'));
+        return view('bankaccounts.show', compact('bankaccount', 'nav'));
     }
 
     /**
@@ -60,7 +61,7 @@ class BankAccountController extends Controller
     public function edit(Bankaccount $bankaccount)
     {
         $nav = 'Edit Bank Account'.$bankaccount->nama_bank;
-        return view('akun_banks.edit', compact('bankaccount', 'nav'));
+        return view('bankaccounts.edit', compact('bankaccount', 'nav'));
     }
 
     /**
@@ -78,7 +79,7 @@ class BankAccountController extends Controller
         ]);
 
        $bankaccount->update($validateData);
-       return redirect()->route('akun_banks.index')->with('Success','Bank Account berhasil diperbarui');
+       return redirect()->route('bankaccounts.index')->with('Success','Bank Account berhasil diperbarui');
     }
 
     /**
@@ -87,6 +88,6 @@ class BankAccountController extends Controller
     public function destroy(Bankaccount $bankaccount)
     {
         $bankaccount->delete();
-        return redirect()->route('akun_banks.index')->with('Success','Bank Account berhasil dihapus');
+        return redirect()->route('bankaccounts.index')->with('Success','Bank Account berhasil dihapus');
     }
 }

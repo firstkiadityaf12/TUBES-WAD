@@ -19,9 +19,10 @@ class Pengeluaran extends Model
         'id_akun_bank', 
     ];
 
-    public function Akun_Bank()
+    public function bankaccounts()
     {
-        return $this->belongsTo(Akun_Bank::class, 'id_akun_bank');
+        return $this->belongsTo(Bankaccount::class, 'id_akun_bank', 'id');
     }
+
 
 }

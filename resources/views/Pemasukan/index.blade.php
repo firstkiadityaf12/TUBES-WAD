@@ -2,8 +2,19 @@
 
 @section('content')
 <div class="container">
+    <!-- Header Title -->
+    <div class="text-center my-4">
+        <h1 class="display-4" style="color: black;">PEMASUKAN</h1>
+    </div>
+
+    <!-- Navigation -->
     <h1>{{ $nav }}</h1>
+    <p class="text-muted">Bagian ini menampilkan daftar pemasukan yang telah tercatat dalam sistem.</p>
+    
+    <!-- Button to Add New Income -->
     <a href="{{ route('pemasukan.create') }}" class="btn btn-success mb-3">Tambah Pemasukan</a>
+    
+    <!-- Table -->
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -22,7 +33,7 @@
                 <td>{{ $pemasukan->tanggal_pemasukan }}</td>
                 <td>{{ $pemasukan->sumber_pemasukan }}</td>
                 <td>{{ $pemasukan->jumlah_pemasukan }}</td>
-                <td>{{ $pemasukan->akunBank->nama_bank ?? '-' }}</td>
+                <td>{{ $pemasukan->id_akun_bank ?? '-' }}</td>
                 <td>
                     <a href="{{ route('pemasukan.show', $pemasukan->id) }}" class="btn btn-info btn-sm">Lihat</a>
                     <a href="{{ route('pemasukan.edit', $pemasukan->id) }}" class="btn btn-warning btn-sm">Edit</a>

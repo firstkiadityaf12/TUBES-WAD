@@ -31,6 +31,6 @@ class Bankaccount extends Model
 
     public function pemasukans()
     {
-        return $this->hasMany(Pemasukans::class, 'id_bank', 'id');
+        return $this->hasMany(Pemasukans::class, 'id_akun_bank', 'id');
     }
 }

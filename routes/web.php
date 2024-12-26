@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LaporanKeuanganController;
+
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
@@ -44,6 +46,12 @@ Route::resource('tagihan', PengeluaranController::class);
 
 // Routing API Laporan
 Route::resource('laporan_keuangan', LaporanKeuanganController::class);
+<<<<<<< HEAD
 Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan-keuangan.transactions');
 Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan-keuangan.filter');
 Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan-keuangan.export');
+=======
+Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan_keuangan.transactions');
+Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan_keuangan.filter');
+Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan_keuangan.export');
+>>>>>>> laporan

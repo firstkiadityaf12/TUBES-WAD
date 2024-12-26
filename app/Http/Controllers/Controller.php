@@ -8,6 +8,10 @@ abstract class Controller
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> laporan
 
 
 =======

@@ -5,7 +5,7 @@
         label {
             display: block;
             font-size: 1.5rem; 
-            margin-bottom: 4px; 
+            margin-bottom: 6px; 
             color: #000;
         }
     </style>

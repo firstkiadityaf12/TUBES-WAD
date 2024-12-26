@@ -38,12 +38,21 @@ Route::resource('akun_banks', BankAccountController::class);
 Route::get('akun_banks/{bankaccount}', [BankAccountController::class, 'show'])->name('bankaccounts.show');
 
 // Routing API Tagihan
-Route::resource('tagihan', TagihanController::class);
-Route::get('tagihan/{tagihan}/read', [TagihanController::class, 'read'])->name('tagihan.read');
-Route::get('tagihan/status/{status}', [TagihanController::class, 'filterByStatus'])->name('tagihan.filterByStatus');
-Route::get('tagihan/jenis/{jenis}', [TagihanController::class, 'filterByType'])->name('tagihan.filterByType');
-Route::get('tagihan/laporan', [TagihanController::class, 'generateReport'])->name('tagihan.laporan');
-Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name('tagihan.pay');
+// Route::resource('tagihan', TagihanController::class);
+// Route::get('tagihan/{tagihan}/read', [TagihanController::class, 'read'])->name('tagihan.read');
+// Route::get('tagihan/status/{status}', [TagihanController::class, 'filterByStatus'])->name('tagihan.filterByStatus');
+// Route::get('tagihan/jenis/{jenis}', [TagihanController::class, 'filterByType'])->name('tagihan.filterByType');
+// Route::get('tagihan/laporan', [TagihanController::class, 'generateReport'])->name('tagihan.laporan');
+// Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name('tagihan.pay');
+Route::prefix('tagihan')->name('tagihan.')->group(function () {
+Route::get('/', [TagihanController::class, 'index'])->name('index');
+Route::get('/create', [TagihanController::class, 'create'])->name('create');
+Route::post('/store', [TagihanController::class, 'store'])->name('store');
+Route::get('/{id}/edit', [TagihanController::class, 'edit'])->name('edit');
+Route::put('/{id}/update', [TagihanController::class, 'update'])->name('update');
+Route::delete('/{id}/destroy', [TagihanController::class, 'destroy'])->name('destroy');
+Route::post('/{id}/mark-as-paid', [TagihanController::class, 'markAsPaid'])->name('markAsPaid');
+});
 
 // Routing API Laporan
 Route::resource('laporan_keuangan', LaporanKeuanganController::class);

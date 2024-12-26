@@ -46,7 +46,7 @@
     <!-- Main Content -->
     <div class="container my-5">
         <h1 class="text-center mb-4">Selamat Datang di Buku Sista</h1>
-        <p class="text-center mb-5">UMKM yang menyediakan buku berkualitas untuk kebutuhan Anda. Dapatkan buku terbaik dengan harga terjangkau!</p>
+        <p class="text-center mb-5">Aplikais UMKM yang menyediakan buku berkualitas untuk kebutuhan Anda. Dapatkan buku terbaik dengan harga terjangkau!</p>
 
         <!-- Products Section -->
         <div class="row">

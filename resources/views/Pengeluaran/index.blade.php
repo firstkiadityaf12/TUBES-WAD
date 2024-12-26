@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>{{ $nav }}</h1>
-    <a href="{{ route('pengeluaran.create') }}" class="btn btn-success mb-3">Tambah Pemasukan</a>
+    <a href="{{ route('pengeluaran.create') }}" class="btn btn-success mb-3">Tambah Pengeluaran</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -19,10 +19,10 @@
             @foreach($pengeluarans as $pengeluaran)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $pemasukan->tanggal_pemasukan }}</td>
-                <td>{{ $pemasukan->sumber_pemasukan }}</td>
-                <td>{{ $pemasukan->jumlah_pemasukan }}</td>
-                <td>{{ $pemasukan->akunBank->nama_bank ?? '-' }}</td>
+                <td>{{ $pengeluaran->tanggal_pengeluaran }}</td>
+                <td>{{ $pengeluaran->sumber_pengeluaran }}</td>
+                <td>{{ $pengeluaran->jumlah_pengeluaran }}</td>
+                <td>{{ $pengeluaran->id_akun_bank ?? '-' }}</td>
                 <td>
                     <a href="{{ route('pengeluaran.show', $pengeluaran->id) }}" class="btn btn-info btn-sm">Lihat</a>
                     <a href="{{ route('pengeluaran.edit', $pengeluaran->id) }}" class="btn btn-warning btn-sm">Edit</a>

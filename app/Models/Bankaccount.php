@@ -23,4 +23,14 @@ class Bankaccount extends Model
     {
         return $this->hasMany(transaksi::class, 'id_akun_banks');
     }
+
+    public function pengeluarans()
+    {
+        return $this->hasMany(Pengeluaran::class, 'id_akun_bank', 'id');
+    }
+
+    public function pemasukans()
+    {
+        return $this->hasMany(Pemasukans::class, 'id_bank', 'id');
+    }
 }

@@ -21,6 +21,9 @@ Route::get('pemasukan/{pemasukan}/read', [PemasukanController::class, 'read'])->
 
 // Routing API Pengeluaran
 Route::resource('pengeluaran', PengeluaranController::class);
+Route::get('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'show'])->name('pengeluaran.show');
+Route::get('/pengeluaran/{pengeluaran}/edit', [PengeluaranController::class, 'edit'])->name('pengeluaran.edit');
+
 
 // Routing API Transaction
 Route::get('/transactions', [TransactionController::class, 'index']) -> name('transactions.index');
@@ -32,7 +35,9 @@ Route::get('transactions/statistik', [TransactionController::class, 'getStatisti
 Route::get('transactions/metode/{metode}', [TransactionController::class, 'filterByPaymentMethod'])->name('transactions.filterByPaymentMethod');
 
 // Routing API Bank Account
-Route::resource('akun_banks', PengeluaranController::class);
+Route::resource('akun_banks', BankAccountController::class);
+Route::get('akun_banks/{bankaccount}', [BankAccountController::class, 'show'])->name('bankaccounts.show');
+
 
 // Routing API Tagihan
 Route::resource('tagihan', PengeluaranController::class);

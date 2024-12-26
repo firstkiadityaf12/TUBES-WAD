@@ -9,7 +9,7 @@
             <p><strong>Sumber Pemasukan:</strong> {{ $pemasukan->sumber_pemasukan }}</p>
             <p><strong>Jumlah Pemasukan:</strong> {{ $pemasukan->jumlah_pemasukan }}</p>
             <p><strong>Deskripsi:</strong> {{ $pemasukan->deskripsi }}</p>
-            <p><strong>Akun Bank:</strong> {{ $pemasukan->akunBank->nama_bank ?? '-' }}</p>
+            <p><strong>Akun Bank:</strong> {{ $pemasukan->id_akun_bank ?? '-' }}</p>
         </div>
     </div>
     <a href="{{ route('pemasukan.index') }}" class="btn btn-secondary mt-3">Kembali</a>

@@ -14,6 +14,13 @@
     <!-- Button to Check New Bill -->
     <a href="{{ route('tagihan.create') }}" class="btn btn-success mb-3">Tambah Tagihan</a>
 
+    <!-- Display Success Message -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Table -->
     <table class="table table-bordered">
         <thead>

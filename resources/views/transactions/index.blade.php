@@ -9,6 +9,7 @@
             <input type="text" name="query" class="form-control" placeholder="Cari transaksi..." required>
             <button type="submit" class="btn btn-primary ms-2">Cari</button>
         </form>
+
         
         <a href="{{ route('transactions.create') }}" class="btn btn-success">Tambah Transaksi</a>
     </div>
@@ -25,11 +26,11 @@
                 <th>No</th>
                 <th>Tanggal</th>
                 <th>Kategori</th>
-                <th>Deskripsi</th>
+                <th>Deskripsi Transaksi</th>
                 <th>Jumlah dalam Rupiah</th>
-                <th>Metode Bayar</th>
-                <th>Status</th>
-                <th>Aksi</th>
+                <th>Metode Pembayaran</th>
+                <th>Status Transaksi</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>

@@ -15,10 +15,10 @@ class PengeluaranController extends Controller
         return view('pengeluaran.index', compact('pengeluarans', 'nav'));
     }
 
-    public function show(Pengeluaran $pengeluarans)
+    public function show(Pengeluaran $pengeluaran)
     {
-        $nav = 'Detail Pengeluaran - ' . $pengeluarans->tanggal_pengeluaran;
-        return view('pengeluaran.show', compact('pengeluarans', 'nav'));
+        $nav = 'Detail Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
+        return view('pengeluaran.show', compact('pengeluaran', 'nav'));
     }
     
 
@@ -44,14 +44,14 @@ class PengeluaranController extends Controller
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil ditambahkan.');
     }
 
-    public function edit(Pengeluaran $pengeluarans){
-        $nav = 'Edit Pengeluaran - ' . $pengeluarans->tanggal_pengeluaran;
-        $akunBanks = Bankaccount::all();
-        return view('pengeluaran.edit', compact('pengeluarans', 'nav', 'akunBanks'));
+    public function edit(Pengeluaran $pengeluaran){
+        $nav = 'Edit Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
+    $akunBanks = Bankaccount::all();
+    return view('pengeluaran.edit', compact('pengeluaran', 'nav', 'akunBanks'));
         
     }
 
-    public function update(UpdatePengeluaranRequest $request, Pengeluaran $pengeluarans){
+    public function update(Request $request, Pengeluaran $pengeluaran){
         $validated = $request->validate([
             'tanggal_pengeluaran' => 'required|date',
             'sumber_pengeluaran' => 'required|string|max:255',
@@ -60,13 +60,13 @@ class PengeluaranController extends Controller
             'id_akun_bank' => 'required|integer|exists:akun_banks,id', // Foreign key
         ]);
 
-        $pengeluarans->update($validated);
+        $pengeluaran->update($validated);
 
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Diperbarui');
     }
 
-    public function hapusPengeluaran(Pengeluaran $pengeluarans){
-        $pengeluarans ->delete();
+    public function destroy(Pengeluaran $pengeluaran){
+        $pengeluaran ->delete();
         
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }

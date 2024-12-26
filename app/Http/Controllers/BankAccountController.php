@@ -30,7 +30,7 @@ class BankAccountController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Bankaccount $request)
+    public function store(Request $request, Bankaccount $bankaccount)
     {
         $validateData = $request->validate([
             'nama_bank' => 'required|string|max:255',

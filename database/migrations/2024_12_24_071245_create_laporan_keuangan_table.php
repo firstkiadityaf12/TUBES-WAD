@@ -18,8 +18,8 @@ return new class extends Migration
             $table->float('total_pengeluaran');
             $table->float('saldo_akhir');
             $table->string('catatan');
-            $table->string('tanggal_pembuatan');
-            $table->string('tanggal_diubah');
+            $table->datetime('tanggal_pembuatan');
+            $table->datetime('tanggal_diubah');
             $table->timestamps();
         });
     }

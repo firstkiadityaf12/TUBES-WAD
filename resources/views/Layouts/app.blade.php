@@ -22,6 +22,7 @@
             height: 100vh;
         }
         .sidebar {
+            background-color: purple; 
             background-color: red;
             margin: 7px;
             color: #ffffff;

@@ -33,7 +33,9 @@ Route::get('transactions/statistik', [TransactionController::class, 'getStatisti
 Route::get('transactions/metode/{metode}', [TransactionController::class, 'filterByPaymentMethod'])->name('transactions.filterByPaymentMethod');
 
 // Routing API Bank Account
-Route::resource('akun_banks', PengeluaranController::class);
+Route::resource('akun_banks', BankAccountController::class);
+Route::get('akun_banks/{bankaccount}', [BankAccountController::class, 'show'])->name('bankaccounts.show');
+
 
 // Routing API Tagihan
 Route::resource('tagihan', PengeluaranController::class);

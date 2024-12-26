@@ -50,15 +50,15 @@
 
         <!-- Products Section -->
         <div class="row">
-            @foreach($books as $book)
+            @foreach($akun_banks as $bank)
             <div class="col-md-4 mb-4">
                 <div class="product-card">
-                    <img src="{{ $book->image }}" alt="{{ $book->title }}" class="img-fluid">
+                    <img src="{{ $bank->image }}" alt="{{ $bank->title }}" class="img-fluid">
                     <div class="p-3">
-                        <h5>{{ $book->title }}</h5>
-                        <p class="text-muted">{{ $book->author }}</p>
-                        <p><strong>Rp {{ number_format($book->price, 0, ',', '.') }}</strong></p>
-                        <a href="/book/{{ $book->id }}" class="btn btn-primary btn-sm">Detail</a>
+                        <h5>{{ $bank->title }}</h5>
+                        <p class="text-muted">{{ $bank->author }}</p>
+                        <p><strong>Rp {{ number_format($bank->price, 0, ',', '.') }}</strong></p>
+                        <a href="/book/{{ $bank->id }}" class="btn btn-primary btn-sm">Detail</a>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
-
+use App\Http\Controllers\LaporanKeuanganController;
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
 Route::get('/', function () {
@@ -24,9 +24,8 @@ Route::get('/pengeluarans/{pengeluaran}/edit', [PengeluaranController::class, 'e
 Route::delete('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'destroy'])->name('pengeluaran.destroy');
 
 
-
 // Routing API Transaction
-Route::get('/transactions', [TransactionController::class, 'index']) -> name('transactions.index');
+Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 Route::get('transactions/{transactions}/read', [TransactionController::class, 'read'])->name('transactions.read');
 Route::get('transactions/kategori/{kategori}', [TransactionController::class, 'filterByCategory'])->name('transactions.filterByCategory');
 Route::get('transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
@@ -38,8 +37,16 @@ Route::get('transactions/metode/{metode}', [TransactionController::class, 'filte
 Route::resource('akun_banks', BankAccountController::class);
 Route::get('akun_banks/{bankaccount}', [BankAccountController::class, 'show'])->name('bankaccounts.show');
 
-
 // Routing API Tagihan
-Route::resource('tagihan', PengeluaranController::class);
+Route::resource('tagihan', TagihanController::class);
+Route::get('tagihan/{tagihan}/read', [TagihanController::class, 'read'])->name('tagihan.read');
+Route::get('tagihan/status/{status}', [TagihanController::class, 'filterByStatus'])->name('tagihan.filterByStatus');
+Route::get('tagihan/jenis/{jenis}', [TagihanController::class, 'filterByType'])->name('tagihan.filterByType');
+Route::get('tagihan/laporan', [TagihanController::class, 'generateReport'])->name('tagihan.laporan');
+Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name('tagihan.pay');
 
 // Routing API Laporan
+Route::resource('laporan_keuangan', LaporanKeuanganController::class);
+Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan-keuangan.transactions');
+Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan-keuangan.filter');
+Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan-keuangan.export');

@@ -10,9 +10,11 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = TransaksiKeuangan::orderBy('tanggal_transaksi', 'desc')->get();
-        return view('transactions.index', compact('transactions'));
+    $transactions = TransaksiKeuangan::orderBy('tanggal_transaksi', 'desc')->get();
+    $totalTransactions = $transactions->count();
+    return view('transactions.index', compact('transactions', 'totalTransactions'));
     }
+
 
     public function create()
     {
@@ -73,4 +75,21 @@ class TransactionController extends Controller
         $transaction = TransaksiKeuangan::findOrFail($id);
         return view('transactions.show', compact('transaction'));
     }
+
+    public function search(Request $request)
+{
+    $query = $request->get('query'); // Ambil parameter 'query' dari form
+
+    // Mencari transaksi berdasarkan deskripsi atau kategori
+    $transactions = Transaction::where('deskripsi', 'like', "%$query%")
+                               ->orWhere('kategori', 'like', "%$query%")
+                               ->get();
+
+    // Menghitung jumlah transaksi yang ditemukan
+    $totalTransactions = $transactions->count();
+
+    // Mengembalikan view dengan data transaksi yang ditemukan dan jumlah transaksi
+    return view('transactions.index', compact('transactions', 'totalTransactions'));
+    }
+
 }

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengeluaran;
-use App\Models\Bankaccount;
+use App\Models\AkunBank;
+
 class PengeluaranController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $pengeluarans = Pengeluaran::all();
-        $nav = 'list pengeluaran';
-
+        $nav = 'List Pengeluaran';
 
         return view('pengeluaran.index', compact('pengeluarans', 'nav'));
     }
@@ -18,14 +19,15 @@ class PengeluaranController extends Controller
     public function show(Pengeluaran $pengeluaran)
     {
         $nav = 'Detail Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
+
         return view('pengeluaran.show', compact('pengeluaran', 'nav'));
     }
-    
 
     public function create()
     {
         $nav = 'Tambah Pengeluaran';
-        $akunBanks = Bankaccount::all(); // Mendapatkan data akun bank
+        $akunBanks = AkunBank::all(); // Mendapatkan data akun bank
+
         return view('pengeluaran.create', compact('nav', 'akunBanks'));
     }
 
@@ -44,6 +46,7 @@ class PengeluaranController extends Controller
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil ditambahkan.');
     }
 
+
     public function edit(Pengeluaran $pengeluaran){
         $nav = 'Edit Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
     $akunBanks = Bankaccount::all();
@@ -52,6 +55,7 @@ class PengeluaranController extends Controller
     }
 
     public function update(Request $request, Pengeluaran $pengeluaran){
+
         $validated = $request->validate([
             'tanggal_pengeluaran' => 'required|date',
             'sumber_pengeluaran' => 'required|string|max:255',
@@ -62,13 +66,12 @@ class PengeluaranController extends Controller
 
         $pengeluaran->update($validated);
 
-        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Diperbarui');
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil diperbarui.');
     }
+
 
     public function destroy(Pengeluaran $pengeluaran){
         $pengeluaran ->delete();
         
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }
-
-}

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('transactions.index') }}" class="btn btn-secondary mb-3">Kembali</a>
     <h2>Tambah Transaksi</h2>
     <form action="{{ route('transactions.store') }}" method="POST">
         @csrf

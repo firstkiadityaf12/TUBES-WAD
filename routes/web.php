@@ -29,7 +29,6 @@ Route::delete('/pengeluaran/{pengeluaran}', [PengeluaranController::class, 'dest
 
 // Routing API Transaction
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-<<<<<<< HEAD
 Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
 Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
 Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
@@ -37,14 +36,6 @@ Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name
 Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.show');
 Route::get('/transactions/search', [TransactionController::class, 'search'])->name('transactions.search');
-=======
-Route::get('transactions/{transactions}/read', [TransactionController::class, 'read'])->name('transactions.read');
-Route::get('transactions/kategori/{kategori}', [TransactionController::class, 'filterByCategory'])->name('transactions.filterByCategory');
-Route::get('transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
-Route::get('transactions/{transactions}/laporan', [TransactionController::class, 'laporanKeuangan'])->name('transactions.laporan');
-Route::get('transactions/statistik', [TransactionController::class, 'getStatistics'])->name('transactions.statistics');
-Route::get('transactions/metode/{metode}', [TransactionController::class, 'filterByPaymentMethod'])->name('transactions.filterByPaymentMethod');
->>>>>>> fc8e7fcf07220e2e65fd6b1f933260e1df56f5f0
 
 // Routing API Bank Account
 Route::resource('bankaccounts', BankAccountController::class);

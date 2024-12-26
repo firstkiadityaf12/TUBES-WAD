@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengeluaran;
-
+use App\Models\Bankaccount;
 class PengeluaranController extends Controller
 {
     public function index(){
@@ -15,16 +15,17 @@ class PengeluaranController extends Controller
         return view('pengeluaran.index', compact('pengeluarans', 'nav'));
     }
 
-    public function readPengeluaran(Pengeluaran $pengeluarans)
+    public function show(Pengeluaran $pengeluarans)
     {
-        $nav = 'Detail Buku - ' . $pengeluarans->tanggal_pengeluaran;
-        return view('pengeluaran.readPengeluaran', compact('pengeluarans', 'nav'));
+        $nav = 'Detail Pengeluaran - ' . $pengeluarans->tanggal_pengeluaran;
+        return view('pengeluaran.show', compact('pengeluarans', 'nav'));
     }
+    
 
-    public function createPengeluaran()
+    public function create()
     {
         $nav = 'Tambah Pengeluaran';
-        $akunBanks = AkunBank::all(); // Mendapatkan data akun bank
+        $akunBanks = Bankaccount::all(); // Mendapatkan data akun bank
         return view('pengeluaran.create', compact('nav', 'akunBanks'));
     }
 
@@ -45,10 +46,12 @@ class PengeluaranController extends Controller
 
     public function edit(Pengeluaran $pengeluarans){
         $nav = 'Edit Pengeluaran - ' . $pengeluarans->tanggal_pengeluaran;
-        return view('pengeluaran.edit', compact('pengeluarans', 'nav'));
+        $akunBanks = Bankaccount::all();
+        return view('pengeluaran.edit', compact('pengeluarans', 'nav', 'akunBanks'));
+        
     }
 
-    public function updatePengeluaran(UpdatePengeluaranRequest $request, Pengeluaran $pengeluarans){
+    public function update(UpdatePengeluaranRequest $request, Pengeluaran $pengeluarans){
         $validated = $request->validate([
             'tanggal_pengeluaran' => 'required|date',
             'sumber_pengeluaran' => 'required|string|max:255',

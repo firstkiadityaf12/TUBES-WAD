@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
-use App\Http\Controllers\LaporanKeuanganController;
+
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
 Route::get('/', function () {
@@ -15,7 +17,8 @@ Route::get('/', function () {
 
 // Routing API Pemasukan
 Route::resource('pemasukan', PemasukanController::class);
-Route::get('pemasukan/{pemasukan}/read', [PemasukanController::class, 'read'])->name('pemasukan.read');
+Route::get('pemasukan/{pemasukan}/show', [PemasukanController::class, 'show'])->name('pemasukan.show');
+Route::get('/pemasukan/{pemasukan}/edit', [PemasukanController::class, 'edit'])->name('pemasukan.edit');
 
 // Routing API Pengeluaran
 Route::resource('pengeluaran', PengeluaranController::class);
@@ -46,9 +49,7 @@ Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name(
 
 // Routing API Laporan
 Route::resource('laporan_keuangan', LaporanKeuanganController::class);
-
 Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan_keuangan.transactions');
 Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan_keuangan.filter');
 Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan_keuangan.export');
-
 

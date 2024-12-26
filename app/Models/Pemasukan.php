@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pemasukan extends Model
 {
-    //
     use HasFactory;
 
+    protected $table = 'pemasukans';
     protected $fillable = [
         'tanggal_pemasukan',
         'sumber_pemasukan',
         'jumlah_pemasukan',
         'deskripsi',
-        'id_bank',
+        'id_akun_bank',
     ];
     
-    public function Akun_Bank()
+    public function bankaccount()
     {
-        return $this->belongsTo(Akun_Bank::class, 'id_bank', 'id');
+        return $this->belongsTo(Bankaccount::class, 'id_akun_bank', 'id');
     }
 }

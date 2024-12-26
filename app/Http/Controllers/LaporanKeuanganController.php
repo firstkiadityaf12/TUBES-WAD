@@ -16,25 +16,26 @@ class LaporanKeuanganController extends Controller
 
     public function create()
     {
-        return view('laporan_keuangan.create');
+        $nav = 'Tambah Laporan Keuangan';
+        return view('laporan_keuangan.create', compact('nav'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'periode_laporan' => 'required|string',
+            
+            'periode_laporan' => 'string',
             'total_pemasukan' => 'required|numeric',
             'total_pengeluaran' => 'required|numeric',
             'saldo_akhir' => 'required|numeric',
             'catatan' => 'nullable|string',
-            'tanggal_pembuatan' => 'required|date',
         ]);
-
-        $validated['tanggal_diubah'] = null;
+        $validated['tanggal_pembuatan'] = now();
+        $validated['tanggal_diubah'] = now();
 
         LaporanKeuangan::create($validated);
 
-        return redirect()->route('laporan-keuangan.index')->with('success', 'Laporan Keuangan berhasil ditambahkan.');
+        return redirect()->route('laporan_keuangan.index')->with('success', 'Laporan Keuangan berhasil ditambahkan.');
     }
 
     public function edit(LaporanKeuangan $laporanKeuangan)
@@ -42,7 +43,7 @@ class LaporanKeuanganController extends Controller
         return view('laporan_keuangan.edit', compact('laporanKeuangan'));
     }
 
-    public function update(Request $request, LaporanKeuangan $laporanKeuangan)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'periode_laporan' => 'required|string',
@@ -50,19 +51,18 @@ class LaporanKeuanganController extends Controller
             'total_pengeluaran' => 'required|numeric',
             'saldo_akhir' => 'required|numeric',
             'catatan' => 'nullable|string',
-            'tanggal_pembuatan' => 'required|date',
         ]);
-
-        $validated['tanggal_diubah'] = now();
-
-        $laporanKeuangan->update($validated);
-
-        return redirect()->route('laporan-keuangan.index')->with('success', 'Laporan Keuangan berhasil diperbarui.');
+    
+        $laporan = LaporanKeuangan::findOrFail($id);
+    
+        $laporan->update(array_merge($validated, ['tanggal_diubah' => now()]));
+    
+        return redirect()->route('laporan_keuangan.index')->with('success', 'Laporan Keuangan berhasil diperbarui.');
     }
 
     public function destroy(LaporanKeuangan $laporanKeuangan)
     {
         $laporanKeuangan->delete();
-        return redirect()->route('laporan-keuangan.index')->with('success', 'Laporan Keuangan berhasil dihapus.');
+        return redirect()->route('laporan_keuangan.index')->with('success', 'Laporan Keuangan berhasil dihapus.');
     }
 }

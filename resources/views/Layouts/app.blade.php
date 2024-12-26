@@ -103,7 +103,7 @@
                 </li>
                 <!-- Laporan Keuangan -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('transactions.index') }}"><i class="fas fa-credit-card"></i> Laporan Keuangan</a>
+                    <a class="nav-link" href="{{ route('laporan_keuangan.index') }}"><i class="fas fa-credit-card"></i> Laporan Keuangan</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Tentang</a>

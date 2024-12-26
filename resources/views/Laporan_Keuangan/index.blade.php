@@ -12,6 +12,8 @@
                 <th>Total Pemasukan</th>
                 <th>Total Pengeluaran</th>
                 <th>Saldo Akhir</th>
+                <th>Tanggal Dibuat</th>
+                <th>Tanggal Diubah</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -23,10 +25,11 @@
                 <td>{{ number_format($item->total_pemasukan, 2) }}</td>
                 <td>{{ number_format($item->total_pengeluaran, 2) }}</td>
                 <td>{{ number_format($item->saldo_akhir, 2) }}</td>
+                <td>{{ $item->tanggal_pembuatan ?? '-' }}</td>
+                <td>{{ $item->tanggal_diubah ?? '-' }}</td>
                 <td>
-                    <a href="{{ route('laporan_keuangan.show', $item->id_laporan) }}" class="btn btn-info btn-sm">Lihat</a>
-                    <a href="{{ route('laporan_keuangan.edit', $item->id_laporan) }}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{ route('laporan_keuangan.destroy', $item->id_laporan) }}" method="POST" style="display:inline;">
+                    <a href="{{ route('laporan_keuangan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('laporan_keuangan.destroy', $item->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus laporan ini?')">Hapus</button>

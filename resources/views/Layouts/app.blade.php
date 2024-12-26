@@ -20,7 +20,7 @@
             margin-top: 20px;
         }
         .sidebar {
-            background-color: red; 
+            background-color: purple; 
             color: #ffffff;
             border-radius: 12px;
             height: 100vh; 

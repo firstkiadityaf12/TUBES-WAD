@@ -65,7 +65,7 @@ class PengeluaranController extends Controller
     public function hapusPengeluaran(Pengeluaran $pengeluarans){
         $pengeluarans ->delete();
         
-        return redirect()->route(pengeluaran.index)->with('success', 'Pengeluaran Berhasil Dihapus');
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }
 
 }

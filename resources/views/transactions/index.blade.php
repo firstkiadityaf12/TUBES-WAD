@@ -5,12 +5,12 @@
     <h2 class="text-center text-black" style="margin-top: 20px;">Daftar Transaksi</h2>
     
     <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ route('transactions.create') }}" class="btn btn-success">(+) Tambah Transaksi</a>
+
         <form action="{{ route('transactions.search') }}" method="GET" class="d-flex">
             <input type="text" name="query" class="form-control" placeholder="Cari transaksi..." required>
             <button type="submit" class="btn btn-primary ms-2">Cari</button>
         </form>
-        
-        <a href="{{ route('transactions.create') }}" class="btn btn-success">Tambah Transaksi</a>
     </div>
 
     @if(session('error'))
@@ -25,11 +25,11 @@
                 <th>No</th>
                 <th>Tanggal</th>
                 <th>Kategori</th>
-                <th>Deskripsi</th>
+                <th>Deskripsi Transaksi</th>
                 <th>Jumlah dalam Rupiah</th>
-                <th>Metode Bayar</th>
-                <th>Status</th>
-                <th>Aksi</th>
+                <th>Metode Pembayaran</th>
+                <th>Status Transaksi</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>
@@ -58,10 +58,11 @@
             @endforelse
         </tbody>
     </table>
-
-    <!-- Menampilkan jumlah transaksi sebagai counter di bawah tabel -->
-    <div class="d-flex justify-content-end mt-3">
-        <p><strong>Jumlah Transaksi: </strong>{{ $totalTransactions }}</p>
+    <div class="d-flex justify-content-end mt-3 flex-column">
+        <p style="color: black;">- Jumlah Transaksi Berhasil : </strong>{{ $successfulTransactions }}</p>
+        <p style="color: black;">- Jumlah Transaksi Pending : </strong>{{ $pendingTransactions }}</p>
+        <p style="color: black;">- Jumlah Transaksi Gagal : </strong>{{ $failedTransactions }}</p>
+        <p style="color: black; font-size: 1.5rem;"><strong>Total Jumlah Transaksi :  </strong>{{ $totalTransactions }}</p>
     </div>
 </div>
 @endsection

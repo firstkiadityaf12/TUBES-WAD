@@ -4,9 +4,9 @@
     <style>
         label {
             display: block;
-            font-size: 1rem; /* Ukuran font sesuai */
-            margin-bottom: 5px; /* Tambahkan jarak dengan input */
-            color: #000; /* Pastikan warna terlihat */
+            font-size: 1rem;
+            margin-bottom: 5px; 
+            color: #000; 
         }
     </style>
 

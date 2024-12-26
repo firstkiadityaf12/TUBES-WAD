@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TransaksiKeuangan;
-
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
     public function index()
     {
-    $transactions = TransaksiKeuangan::orderBy('tanggal_transaksi', 'desc')->get();
-    $totalTransactions = $transactions->count();
-    return view('transactions.index', compact('transactions', 'totalTransactions'));
+        $transactions = TransaksiKeuangan::orderBy('tanggal_transaksi', 'desc')->get();
+        $totalTransactions = $transactions->count();
+        $successfulTransactions = $transactions->where('status', 'berhasil')->count();
+        $pendingTransactions = $transactions->where('status', 'pending')->count();
+        $failedTransactions = $transactions->where('status', 'gagal')->count();
+        
+        return view('transactions.index', compact(
+            'transactions', 
+            'totalTransactions', 
+            'successfulTransactions', 
+            'pendingTransactions', 
+            'failedTransactions'
+        ));
     }
-
 
     public function create()
     {
@@ -77,19 +86,16 @@ class TransactionController extends Controller
     }
 
     public function search(Request $request)
-{
-    $query = $request->get('query'); // Ambil parameter 'query' dari form
+    {
+    $query = $request->get('query'); 
 
-    // Mencari transaksi berdasarkan deskripsi atau kategori
-    $transactions = Transaction::where('deskripsi', 'like', "%$query%")
-                               ->orWhere('kategori', 'like', "%$query%")
-                               ->get();
+    $transactions = TransaksiKeuangan::where('deskripsi', 'like', '%' . $query . '%')
+                                     ->orWhere('kategori', 'like', '%' . $query . '%')
+                                     ->orderBy('tanggal_transaksi', 'desc')
+                                     ->get();
 
-    // Menghitung jumlah transaksi yang ditemukan
     $totalTransactions = $transactions->count();
-
-    // Mengembalikan view dengan data transaksi yang ditemukan dan jumlah transaksi
-    return view('transactions.index', compact('transactions', 'totalTransactions'));
+    return view('transactions.index', compact('transactions', 'totalTransactions', 'query'));
     }
 
 }

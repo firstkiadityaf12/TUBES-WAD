@@ -12,29 +12,24 @@ class PemasukanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(){
         $pemasukans = Pemasukan::all();
-        $nav = 'List Pemasukan';
+        $nav = 'list pemasukan';
         return view('pemasukan.index', compact('pemasukans', 'nav'));
     }
 
-    public function read(Pemasukan $pemasukans)
+    public function show(Pemasukan $pemasukan)
     {
-        $nav = 'Detail Pemasukan - ' . $pemasukans->tanggal_pemasukan;
-        return view('pemasukan.read', compact('pemasukans', 'nav'));
+        $nav = 'Detail Pemasukan - ' . $pemasukan->tanggal_pemasukan;
+        return view('pemasukan.show', compact('pemasukan', 'nav'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
         $nav = 'Tambah Pemasukan';
-        $akun_banks = Bankaccount::all(); // Fetch all available Akun_Bank
-        return view('pemasukan.create', compact('nav', 'akun_banks'));
+        $akunBanks = Bankaccount::all(); // Mendapatkan data akun bank
+        return view('pemasukan.create', compact('nav', 'akunBanks'));
     }
 
     /**
@@ -42,72 +37,53 @@ class PemasukanController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $validatedData = $request->validate([
-            'tanggal_pemasukan' => 'required|string',
-            'sumber_pemasukan' => 'required|string',
+        $validated = $request->validate([
+            'tanggal_pemasukan' => 'required|date',
+            'sumber_pemasukan' => 'required|string|max:255',
             'jumlah_pemasukan' => 'required|numeric',
-            'deskripsi' => 'nullable|string',
-            'id_bank' => 'required|exists:akun_banks,id',
+            'deskripsi' => 'required|string|max:255',
+            'id_akun_bank' => 'required|integer|exists:akun_banks,id', // Foreign key
         ]);
 
-        Pemasukan::create($validatedData);
+        Pemasukan::create($validated);
 
         return redirect()->route('pemasukan.index')->with('success', 'Pemasukan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-        $pemasukan = Pemasukan::with('akunBank')->findOrFail($id);
-        $nav = 'Detail Pemasukan';
-        return view('pemasukan.show', compact('pemasukan', 'nav'));
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-        $pemasukan = Pemasukan::findOrFail($id);
-        $akun_banks = Bankaccount::all();
-        $nav = 'Edit Pemasukan';
-        return view('pemasukan.edit', compact('pemasukan', 'akun_banks', 'nav'));
+    public function edit(Pemasukan $pemasukan){
+        $nav = 'Edit Pemasukan - ' . $pemasukan->tanggal_pemasukan;
+        $akunBanks = Bankaccount::all();
+        return view('pemasukan.edit', compact('pemasukan', 'nav', 'akunBanks'));
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-        $validatedData = $request->validate([
-            'tanggal_pemasukan' => 'required|string',
-            'sumber_pemasukan' => 'required|string',
+    public function update(Request $request, Pemasukan $pemasukan){
+        $validated = $request->validate([
+            'tanggal_pemasukan' => 'required|date',
+            'sumber_pemasukan' => 'required|string|max:255',
             'jumlah_pemasukan' => 'required|numeric',
-            'deskripsi' => 'nullable|string',
-            'id_bank' => 'required|exists:akun_banks,id',
+            'deskripsi' => 'required|string|max:255',
+            'id_akun_bank' => 'required|integer|exists:akun_banks,id', // Foreign key
         ]);
 
-        $pemasukan = Pemasukan::findOrFail($id);
-        $pemasukan->update($validatedData);
+        $pemasukan->update($validated);
 
-        return redirect()->route('pemasukan.index')->with('success', 'Pemasukan berhasil diperbarui.');
+        return redirect()->route('pemasukan.index')->with('success', 'Pemasukan Berhasil Diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-        $pemasukan = Pemasukan::findOrFail($id);
-        $pemasukan->delete();
-
-        return redirect()->route('pemasukan.index')->with('success', 'Pemasukan berhasil dihapus.');
+    public function destroy(Pemasukan $pemasukan){
+        $pemasukan ->delete();
+        
+        return redirect()->route('pemasukan.index')->with('success', 'Pemasukan Berhasil Dihapus');
     }
 }

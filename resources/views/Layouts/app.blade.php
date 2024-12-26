@@ -100,7 +100,7 @@
                 </li>
                 <!-- Bank Account -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('akun_banks.index') }}"><i class="fas fa-credit-card"></i> Akun Bank</a>
+                    <a class="nav-link" href="{{ route('bankaccounts.index') }}"><i class="fas fa-credit-card"></i> Akun Bank</a>
                 </li>
                 <!-- Tagihan -->
                 <li class="nav-item">

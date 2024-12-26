@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengeluaran;
-use App\Models\AkunBank;
+use App\Models\Bankaccount;
 
 class PengeluaranController extends Controller
 {
@@ -26,7 +26,7 @@ class PengeluaranController extends Controller
     public function create()
     {
         $nav = 'Tambah Pengeluaran';
-        $akunBanks = AkunBank::all(); // Mendapatkan data akun bank
+        $akunBanks = Bankaccount::all(); // Mendapatkan data akun bank
 
         return view('pengeluaran.create', compact('nav', 'akunBanks'));
     }
@@ -75,3 +75,4 @@ class PengeluaranController extends Controller
         
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }
+}

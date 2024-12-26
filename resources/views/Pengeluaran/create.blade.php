@@ -5,13 +5,13 @@
         label {
             display: block;
             font-size: 1rem; 
-            margin-bottom: 5px;
+            margin-bottom: 5px; 
             color: #000; 
         }
     </style>
     <div class="container">
         <h1>{{ $nav }}</h1>
-
+        
         <form action="{{ route('pengeluaran.store') }}" method="POST">
             @csrf
             <div class="form-group">

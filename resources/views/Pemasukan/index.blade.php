@@ -22,7 +22,7 @@
                 <th>Tanggal</th>
                 <th>Sumber</th>
                 <th>Jumlah</th>
-                <th>Bank</th>
+                <th>ID Bank</th>
                 <th>Aksi</th>
             </tr>
         </thead>

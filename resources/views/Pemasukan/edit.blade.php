@@ -1,37 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    label {
+        display: block;
+        font-size: 1rem; /* Ukuran font sesuai */
+        margin-bottom: 5px; /* Tambahkan jarak dengan input */
+        color: #000; /* Pastikan warna terlihat */
+    }
+</style>
+
 <div class="container">
     <h1>{{ $nav }}</h1>
+    <h1>Edit Pengeluaran</h1>
     <form action="{{ route('pemasukan.update', $pemasukan->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="mb-3">
-            <label for="tanggal_pemasukan" class="form-label">Tanggal Pemasukan</label>
-            <input type="date" class="form-control" id="tanggal_pemasukan" name="tanggal_pemasukan" value="{{ $pemasukan->tanggal_pemasukan }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="sumber_pemasukan" class="form-label">Sumber Pemasukan</label>
-            <input type="text" class="form-control" id="sumber_pemasukan" name="sumber_pemasukan" value="{{ $pemasukan->sumber_pemasukan }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="jumlah_pemasukan" class="form-label">Jumlah Pemasukan</label>
-            <input type="number" step="0.01" class="form-control" id="jumlah_pemasukan" name="jumlah_pemasukan" value="{{ $pemasukan->jumlah_pemasukan }}" required>
-        </div>
-        <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi">{{ $pemasukan->deskripsi }}</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="id_bank" class="form-label">Akun Bank</label>
-            <select class="form-select" id="id_bank" name="id_bank" required>
-                @foreach($akun_banks as $bank)
-                    <option value="{{ $bank->id }}" {{ $pemasukan->id_bank == $bank->id ? 'selected' : '' }}>
-                        {{ $bank->nama_bank }} - {{ $bank->nomor_rekening }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="tanggal_pemasukan">Tanggal Pemasukan</label>
+                <input type="date" name="tanggal_pemasukan" id="tanggal_pemasukan" class="form-control" 
+                       value="{{ old('tanggal_pemasukan', $pemasukan->tanggal_pemasukan) }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sumber_pemasukan">Sumber Pemasukan</label>
+                <input type="text" name="sumber_pemasukan" id="sumber_pemasukan" class="form-control" 
+                       value="{{ old('sumber_pemasukan', $pemasukan->sumber_pemasukan) }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="jumlah_pemasukan">Jumlah Pemasukan</label>
+                <input type="number" name="jumlah_pemasukan" id="jumlah_pemasukan" class="form-control" 
+                       value="{{ old('jumlah_pemasukan', $pemasukan->jumlah_pemasukan) }}" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="deskripsi">Deskripsi</label>
+                <textarea name="deskripsi" id="deskripsi" class="form-control" required>{{ old('deskripsi', $pemasukan->deskripsi) }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="id_akun_bank">Akun Bank</label>
+                <select name="id_akun_bank" id="id_akun_bank" class="form-control" required>
+                    @foreach ($akunBanks as $bank)
+                        <option value="{{ $bank->id }}" 
+                                {{ $bank->id == $pemasukan->id_akun_bank ? 'selected' : '' }}>
+                            {{ $bank->nama_bank }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
         <button type="submit" class="btn btn-primary">Perbarui</button>
     </form>
 </div>

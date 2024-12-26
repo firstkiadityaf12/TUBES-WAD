@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>{{ $nav }}</h1>
+<div class="text-center text-black container">
+<h1 class="text-black">{{ $nav }}</h1>
     <a href="{{ route('laporan_keuangan.create') }}" class="btn btn-success mb-3">Tambah Laporan Keuangan</a>
     <table class="table table-bordered">
         <thead>

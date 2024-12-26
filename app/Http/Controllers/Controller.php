@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-=======
 <?php
 
 namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    //
+    // Tambahkan logika atau metode umum untuk controller di sini
 }
-
-}
-
->>>>>>> 9d48a8d32f087c824acdcbb00fd9bd95326cc704

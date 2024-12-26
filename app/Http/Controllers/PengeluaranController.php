@@ -46,16 +46,16 @@ class PengeluaranController extends Controller
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil ditambahkan.');
     }
 
-    public function edit(Pengeluaran $pengeluaran)
-    {
-        $nav = 'Edit Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
-        $akunBanks = AkunBank::all(); // Mendapatkan data akun bank
 
-        return view('pengeluaran.edit', compact('pengeluaran', 'nav', 'akunBanks'));
+    public function edit(Pengeluaran $pengeluaran){
+        $nav = 'Edit Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
+    $akunBanks = Bankaccount::all();
+    return view('pengeluaran.edit', compact('pengeluaran', 'nav', 'akunBanks'));
+        
     }
 
-    public function update(Request $request, Pengeluaran $pengeluaran)
-    {
+    public function update(Request $request, Pengeluaran $pengeluaran){
+
         $validated = $request->validate([
             'tanggal_pengeluaran' => 'required|date',
             'sumber_pengeluaran' => 'required|string|max:255',
@@ -69,10 +69,9 @@ class PengeluaranController extends Controller
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil diperbarui.');
     }
 
-    public function destroy(Pengeluaran $pengeluaran)
-    {
-        $pengeluaran->delete();
 
-        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil dihapus.');
+    public function destroy(Pengeluaran $pengeluaran){
+        $pengeluaran ->delete();
+        
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }
-}

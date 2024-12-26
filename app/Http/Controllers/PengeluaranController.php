@@ -75,3 +75,4 @@ class PengeluaranController extends Controller
         
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }
+}

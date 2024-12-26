@@ -22,7 +22,7 @@
                 <td>{{ $pengeluaran->tanggal_pengeluaran }}</td>
                 <td>{{ $pengeluaran->sumber_pengeluaran }}</td>
                 <td>{{ $pengeluaran->jumlah_pengeluaran }}</td>
-                <td>{{ $pengeluaran->akunBank->nama_bank ?? '-' }}</td>
+                <td>{{ $pengeluaran->id_akun_bank ?? '-' }}</td>
                 <td>
                     <a href="{{ route('pengeluaran.show', $pengeluaran->id) }}" class="btn btn-info btn-sm">Lihat</a>
                     <a href="{{ route('pengeluaran.edit', $pengeluaran->id) }}" class="btn btn-warning btn-sm">Edit</a>

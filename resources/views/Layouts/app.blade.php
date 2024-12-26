@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $nav ?? 'Aplikasi Pemasukan' }}</title>
+    <title>{{ $nav ?? 'BUKU SISTA' }}</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -13,13 +13,18 @@
             background-color: #000000;
             color: #ffffff;
         }
+        
+        .title-black {
+        color: black;
+        }
+
         .custom-container {
             background-color: white;
             border-radius: 15px;
             padding: 40px;
             margin-top: 7px;
             margin-right: 7px;
-            height: 100vh;
+            height: 150vh;
         }
         .sidebar {
             background-color: purple; 
@@ -27,7 +32,7 @@
             margin: 7px;
             color: #ffffff;
             border-radius: 12px;
-            height: 100vh;
+            height: 150vh;
             width: 250px;
             padding: 5px;
             position: sticky;
@@ -103,7 +108,7 @@
                 </li>
                 <!-- Laporan Keuangan -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('transactions.index') }}"><i class="fas fa-credit-card"></i> Laporan Keuangan</a>
+                    <a class="nav-link" href="{{ route('laporan_keuangan.index') }}"><i class="fas fa-credit-card"></i> Laporan Keuangan</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Tentang</a>

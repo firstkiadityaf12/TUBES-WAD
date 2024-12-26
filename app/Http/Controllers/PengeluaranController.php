@@ -3,35 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use App\Models\Pengeluaran;
-use App\Models\Akun_Bank;
-use App\Models\Pengeluaran;
-use Illuminate\Routing\Controller;
-use App\Models\Pengeluaran;
-use App\Models\Akun_Bank;
-use App\Models\Pengeluaran;
+use App\Models\AkunBank;
 
 class PengeluaranController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $pengeluarans = Pengeluaran::all();
-        $nav = 'list pengeluaran';
-
+        $nav = 'List Pengeluaran';
 
         return view('pengeluaran.index', compact('pengeluarans', 'nav'));
     }
 
-    public function readPengeluaran(Pengeluaran $pengeluarans)
+    public function show(Pengeluaran $pengeluaran)
     {
-        $nav = 'Detail Buku - ' . $pengeluarans->tanggal_pengeluaran;
-        return view('pengeluaran.readPengeluaran', compact('pengeluarans', 'nav'));
+        $nav = 'Detail Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
+
+        return view('pengeluaran.show', compact('pengeluaran', 'nav'));
     }
 
-    public function createPengeluaran()
+    public function create()
     {
         $nav = 'Tambah Pengeluaran';
         $akunBanks = AkunBank::all(); // Mendapatkan data akun bank
+
         return view('pengeluaran.create', compact('nav', 'akunBanks'));
     }
 
@@ -50,12 +46,16 @@ class PengeluaranController extends Controller
         return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil ditambahkan.');
     }
 
-    public function edit(Pengeluaran $pengeluarans){
-        $nav = 'Edit Pengeluaran - ' . $pengeluarans->tanggal_pengeluaran;
-        return view('pengeluaran.edit', compact('pengeluarans', 'nav'));
+    public function edit(Pengeluaran $pengeluaran)
+    {
+        $nav = 'Edit Pengeluaran - ' . $pengeluaran->tanggal_pengeluaran;
+        $akunBanks = AkunBank::all(); // Mendapatkan data akun bank
+
+        return view('pengeluaran.edit', compact('pengeluaran', 'nav', 'akunBanks'));
     }
 
-    public function updatePengeluaran(UpdatePengeluaranRequest $request, Pengeluaran $pengeluarans){
+    public function update(Request $request, Pengeluaran $pengeluaran)
+    {
         $validated = $request->validate([
             'tanggal_pengeluaran' => 'required|date',
             'sumber_pengeluaran' => 'required|string|max:255',
@@ -64,24 +64,15 @@ class PengeluaranController extends Controller
             'id_akun_bank' => 'required|integer|exists:akun_banks,id', // Foreign key
         ]);
 
-        $pengeluarans->update($validated);
+        $pengeluaran->update($validated);
 
-        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Diperbarui');
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil diperbarui.');
     }
 
-    public function hapusPengeluaran(Pengeluaran $pengeluarans){
-        $pengeluarans ->delete();
+    public function destroy(Pengeluaran $pengeluaran)
+    {
+        $pengeluaran->delete();
 
-        return redirect()->route(pengeluaran.index)->with('success', 'Pengeluaran Berhasil Dihapus');
-
-
-        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
-
-
-        return redirect()->route(pengeluaran.index)->with('success', 'Pengeluaran Berhasil Dihapus');
-
-        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
-
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran berhasil dihapus.');
     }
-
 }

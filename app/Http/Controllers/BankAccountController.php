@@ -58,24 +58,25 @@ class BankAccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bankaccount $bankaccount)
+    public function edit($id)
     {
-        $nav = 'Edit Bank Account'.$bankaccount->nama_bank;
-        return view('bankaccounts.edit', compact('bankaccount', 'nav'));
+        $bankaccounts = BankAccount::findOrFail($id);
+        return view('bankaccounts.edit', compact('bankaccounts'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBankAccountRequest $request, Bankaccount $bankaccount)
+    public function update(Request $request, Bankaccount $bankaccount)
     {
         $validateData = $request->validate([
-            'nama_bank' => 'required|string|max:255',
-            'nomor_rekening' => 'required|string|unique:akun_banks,nomor_rekening',
-            'nama_pemilik' => 'required|string|max:255',
-            'saldo' => 'required|numeric|min:0',
-            'tanggal_ditambahkan' => 'required|string|max:255',
-            'tanggal_diubah' => 'required|string|max:255',
+            'nama_bank' => 'string|max:255',
+            'nomor_rekening' => 'string|max:255',
+            'nama_pemilik' => 'string|max:255',
+            'saldo' => 'numeric|min:0',
+            'tanggal_ditambahkan' => 'string|max:255',
+            'tanggal_diubah' => 'string|max:255',
         ]);
 
        $bankaccount->update($validateData);

@@ -6,6 +6,8 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\LaporanKeuanganController;
+
 
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
@@ -36,3 +38,7 @@ Route::resource('akun_banks', PengeluaranController::class);
 Route::resource('tagihan', PengeluaranController::class);
 
 // Routing API Laporan
+Route::resource('laporan_keuangan', LaporanKeuanganController::class);
+Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan-keuangan.transactions');
+Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan-keuangan.filter');
+Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan-keuangan.export');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Pengeluaran;
 use App\Models\Akun_Bank;
+use App\Models\Pengeluaran;
 
 class PengeluaranController extends Controller
 {
@@ -68,6 +69,8 @@ class PengeluaranController extends Controller
         $pengeluarans ->delete();
 
         return redirect()->route(pengeluaran.index)->with('success', 'Pengeluaran Berhasil Dihapus');
+        
+        return redirect()->route('pengeluaran.index')->with('success', 'Pengeluaran Berhasil Dihapus');
     }
 
 }

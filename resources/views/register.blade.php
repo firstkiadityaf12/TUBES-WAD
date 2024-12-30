@@ -6,9 +6,9 @@
     <form action="{{ route('register.process') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="name" class="form-label" style="color: black;">Nama</label>
-            <input type="text" name="name" class="form-control" style="color: black;" required>
-            <small class="form-text text-muted">Masukkan nama lengkap Anda.</small> <!-- Keterangan tambahan -->
+            <label for="username" class="form-label" style="color: black;">Nama</label>
+            <input type="text" name="username" class="form-control" style="color: black;" required>
+            <small class="form-text text-muted">Masukkan nama lengkap Anda.</small>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label" style="color: black;">Email</label>

@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loginregisters', function (Blueprint $table) {
-            $table->id(); // Kolom ID
-            $table->string('username'); // Kolom untuk nama
-            $table->string('email')->unique(); // Kolom untuk email, pastikan unik
-            $table->string('password'); // Kolom untuk password
-            $table->timestamps(); // Kolom untuk created_at dan updated_at
+        Schema::create('loginregister', function (Blueprint $table) {
+            $table->id(); // Kolom id otomatis auto-increment
+            $table->string('username');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamps();
         });
+        
     }
 
     /**

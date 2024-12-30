@@ -72,6 +72,7 @@ Route::get('/', function () {
     return redirect()->route('login'); // Redirect ke login jika belum login
 });
 
+
 // Routing login dan register
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
@@ -82,6 +83,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route untuk dashboard (hanya user login yang bisa akses)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('dashboard'); // Pastikan view dashboard ada
     })->name('dashboard');
 });
+

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -26,8 +28,11 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('dashboard')->with('success', 'Berhasil login!');
+        $user = DB::table('loginregister')->where('email', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+        Auth::loginUsingId($user->id);
+        return redirect()->route('dashboard')->with('success', 'Berhasil login!');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);

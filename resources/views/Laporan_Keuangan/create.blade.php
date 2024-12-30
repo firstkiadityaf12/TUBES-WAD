@@ -1,6 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        label {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            color: #000;
+        }
+    </style>
+    <div class="container">
+        <h1>{{ $nav }}</h1>
+        
+        <form action="{{ route('laporan_keuangan.store') }}" method="POST">
+            @csrf
+            <!-- Periode Laporan -->
+            <div class="form-group">
+                <label for="periode_laporan">Periode Laporan</label>
+                <select name="periode_laporan" id="periode_laporan" class="form-control" required>
+                    <option value="">-- Pilih Periode --</option>
+                    @foreach($periode as $item)
+                        <option value="{{ $item }}">{{ $item }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Catatan -->
+            <div class="form-group">
+                <label for="catatan">Catatan</label>
+                <textarea name="catatan" id="catatan" class="form-control">{{ old('catatan') }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+        </form>
+    </div>
+@endsection
+
+
+<!-- @extends('layouts.app')
+
+@section('content')
 <div class="container">
     <h1 class="text-black">{{ $nav }}</h1>
     <form action="{{ route('laporan_keuangan.store') }}" method="POST">
@@ -29,4 +68,4 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
 </div>
-@endsection
+@endsection -->

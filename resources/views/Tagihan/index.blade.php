@@ -11,8 +11,47 @@
     <h1>{{ $nav ?? 'Navigasi Default' }}</h1>
     <p class="text-muted">Bagian ini menampilkan daftar tagihan yang harus dibayarkan.</p>
 
-    <!-- Button to Check New Bill -->
+    <!-- Button to Add New Bill -->
     <a href="{{ route('tagihan.create') }}" class="btn btn-success mb-3">Tambah Tagihan</a>
+
+    <!-- Filter and Sort Section -->
+    <form action="{{ route('tagihan.index') }}" method="GET" class="mb-3">
+        <div class="row g-2">
+            <!-- Filter by Status -->
+            <div class="col-md-4">
+                <label for="status" class="form-label">Filter Status</label>
+                <select class="form-select" id="status" name="status">
+                    <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua Status</option>
+                    <option value="lunas" {{ request('status') == 'lunas' ? 'selected' : '' }}>Lunas</option>
+                    <option value="belum bayar" {{ request('status') == 'belum bayar' ? 'selected' : '' }}>Belum Bayar</option>
+                </select>
+            </div>
+
+            <!-- Sort by Tanggal Jatuh Tempo -->
+            <div class="col-md-4">
+                <label for="tanggal" class="form-label">Sortir Tanggal Jatuh Tempo</label>
+                <select class="form-select" id="tanggal" name="tanggal">
+                    <option value="" {{ request('tanggal') == '' ? 'selected' : '' }}>Default</option>
+                    <option value="asc" {{ request('tanggal') == 'asc' ? 'selected' : '' }}>Terlama</option>
+                    <option value="desc" {{ request('tanggal') == 'desc' ? 'selected' : '' }}>Terbaru</option>
+                </select>
+            </div>
+
+            <!-- Sort by Jumlah Tagihan -->
+            <div class="col-md-4">
+                <label for="jumlah" class="form-label">Sortir Jumlah Tagihan</label>
+                <select class="form-select" id="jumlah" name="jumlah">
+                    <option value="" {{ request('jumlah') == '' ? 'selected' : '' }}>Default</option>
+                    <option value="asc" {{ request('jumlah') == 'asc' ? 'selected' : '' }}>Terkecil</option>
+                    <option value="desc" {{ request('jumlah') == 'desc' ? 'selected' : '' }}>Terbesar</option>
+                </select>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Terapkan Filter & Sortir</button>
+        </div>
+    </form>
 
     <!-- Display Success Message -->
     @if(session('success'))
@@ -35,7 +74,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tagihans as $tagihan)
+            @forelse($tagihans as $tagihan)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $tagihan->nama_tagihan }}</td>
@@ -53,7 +92,11 @@
                     </form>
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="7" class="text-center">Tidak ada data tagihan.</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

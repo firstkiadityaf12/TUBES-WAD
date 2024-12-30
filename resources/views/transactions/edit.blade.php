@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>Edit Transaksi</h2>
+    <a href="{{ route('transactions.index') }}" class="btn btn-secondary mb-3">Kembali</a>
+    <h2 class="text-black">Edit Transaksi</h2>
     <form action="{{ route('transactions.update', $transaction->id) }}" method="POST">
         @csrf
         @method('PUT')

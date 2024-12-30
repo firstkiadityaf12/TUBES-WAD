@@ -5,7 +5,7 @@
         label {
             display: block;
             font-size: 1.5rem; 
-            margin-bottom: 4px; 
+            margin-bottom: 6px; 
             color: #000;
         }
     </style>
@@ -29,10 +29,15 @@
                 <label for="nama_pemilik">Nama Pemilik</label>
                 <input type="text" name="nama_pemilik" id="nama_pemilik" class="form-control" value="{{ old('nama_pemilik') }}" required>
             </div>
+             <!-- Saldo -->
+             <div class="form-group">
+                <label for="saldo">Saldo</label>
+                <input type="number" name="saldo" id="saldo" class="form-control" value="{{ old('saldo') }}" required>
+            </div>
             <!-- tanggal ditambah -->
             <div class="form-group">
-                <label for="tanggal_ditambah">Tanggal Ditambah</label>
-                <input type="date" name="tanggal_ditambah" id="tanggal_ditambah" class="form-control" value="{{ old('tanggal_ditambah') }}" required>
+                <label for="tanggal_ditambahkan">Tanggal Ditambah</label>
+                <input type="date" name="tanggal_ditambahkan" id="tanggal_ditambahkan" class="form-control" value="{{ old('tanggal_ditambahkan') }}" required>
             </div>
             <!-- tanggal diubah -->
             <div class="form-group">

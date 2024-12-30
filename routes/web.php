@@ -8,12 +8,13 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
-
+use App\Http\Controllers\DashboardController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
-Route::get('/', function () {
-    return redirect()->route('pemasukan.index');
-});
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 
 // Routing API Pemasukan
 Route::resource('pemasukan', PemasukanController::class);

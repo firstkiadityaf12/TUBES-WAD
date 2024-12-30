@@ -8,6 +8,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\AuthController;
 
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
@@ -63,3 +64,24 @@ Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::c
 Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan_keuangan.filter');
 Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan_keuangan.export');
 
+// Default route untuk login/register jika user belum login
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard'); // Redirect ke dashboard jika login
+    }
+    return redirect()->route('login'); // Redirect ke login jika belum login
+});
+
+// Routing login dan register
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route untuk dashboard (hanya user login yang bisa akses)
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

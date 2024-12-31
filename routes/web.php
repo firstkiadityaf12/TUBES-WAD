@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\PemasukanController;
@@ -18,6 +20,15 @@ use App\Http\Controllers\HomeController;
 
 // landing page
 Route::get('home', [HomeController::class, 'index'])->name('home');
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+
+
+// Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 
 // Routing API Pemasukan
 Route::resource('pemasukan', PemasukanController::class);
@@ -45,16 +56,46 @@ Route::get('/transactions/search', [TransactionController::class, 'search'])->na
 Route::resource('bankaccounts', BankAccountController::class);
 
 // Routing API Tagihan
-Route::resource('tagihan', TagihanController::class);
-Route::get('tagihan/{tagihan}/read', [TagihanController::class, 'read'])->name('tagihan.read');
-Route::get('tagihan/status/{status}', [TagihanController::class, 'filterByStatus'])->name('tagihan.filterByStatus');
-Route::get('tagihan/jenis/{jenis}', [TagihanController::class, 'filterByType'])->name('tagihan.filterByType');
-Route::get('tagihan/laporan', [TagihanController::class, 'generateReport'])->name('tagihan.laporan');
-Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name('tagihan.pay');
+// Route::resource('tagihan', TagihanController::class);
+// Route::get('tagihan/{tagihan}/read', [TagihanController::class, 'read'])->name('tagihan.read');
+// Route::get('tagihan/status/{status}', [TagihanController::class, 'filterByStatus'])->name('tagihan.filterByStatus');
+// Route::get('tagihan/jenis/{jenis}', [TagihanController::class, 'filterByType'])->name('tagihan.filterByType');
+// Route::get('tagihan/laporan', [TagihanController::class, 'generateReport'])->name('tagihan.laporan');
+// Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name('tagihan.pay');
+Route::prefix('tagihan')->name('tagihan.')->group(function () {
+Route::get('/', [TagihanController::class, 'index'])->name('index');
+Route::get('/create', [TagihanController::class, 'create'])->name('create');
+Route::post('/store', [TagihanController::class, 'store'])->name('store');
+Route::get('/{id}/edit', [TagihanController::class, 'edit'])->name('edit');
+Route::put('/{id}/update', [TagihanController::class, 'update'])->name('update');
+Route::delete('/{id}/destroy', [TagihanController::class, 'destroy'])->name('destroy');
+Route::post('/{id}/mark-as-paid', [TagihanController::class, 'markAsPaid'])->name('markAsPaid');
+});
 
 // Routing API Laporan
 Route::resource('laporan_keuangan', LaporanKeuanganController::class);
 Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan_keuangan.transactions');
 Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan_keuangan.filter');
 Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan_keuangan.export');
+
+// Default route untuk login/register jika user belum login
+Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard'); // Redirect ke dashboard jika login
+    }
+    return redirect()->route('login'); // Redirect ke login jika belum login
+});
+
+
+// Routing login dan register
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route untuk dashboard (hanya user login yang bisa akses)
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+});
 

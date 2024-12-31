@@ -22,9 +22,9 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->periode_laporan }}</td>
-                <td>{{ number_format($item->total_pemasukan, 2) }}</td>
-                <td>{{ number_format($item->total_pengeluaran, 2) }}</td>
-                <td>{{ number_format($item->saldo_akhir, 2) }}</td>
+                <td>{{ 'Rp' . number_format($item->total_pemasukan, 0, ',', '.') }}</td>
+                <td>{{ 'Rp' . number_format($item->total_pengeluaran, 0, ',', '.') }}</td>
+                <td>{{ 'Rp' . number_format($item->saldo_akhir, 0, ',', '.') }}</td>
                 <td>{{ $item->tanggal_pembuatan ?? '-' }}</td>
                 <td>{{ $item->tanggal_diubah ?? '-' }}</td>
                 <td>

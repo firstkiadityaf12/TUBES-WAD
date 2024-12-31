@@ -19,6 +19,7 @@ use App\Http\Controllers\HomeController;
 // });
 
 // landing page
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
 use App\Http\Controllers\AuthController;
@@ -74,12 +75,12 @@ Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::clas
 Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan_keuangan.export');
 
 // Default route untuk login/register jika user belum login
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('dashboard'); // Redirect ke dashboard jika login
-    }
-    return redirect()->route('login'); // Redirect ke login jika belum login
-});
+// Route::get('/', function () {
+//     if (Auth::check()) {
+//         return redirect()->route('dashboard.index'); // Redirect ke dashboard jika login
+//     }
+//     return redirect()->route('login'); // Redirect ke login jika belum login
+// });
 
 
 // Routing login dan register

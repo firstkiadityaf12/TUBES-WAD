@@ -61,15 +61,17 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|email|unique:loginregister,email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        DB::table('loginregister')->insert([
-            'username' => $request->username,
+        DB::table('users')->insert([
+            'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan login!');

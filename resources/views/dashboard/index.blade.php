@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    body, h1, ul, table, th, td, a {
+        color: black;
+    }
+</style>
 <div class="container">
     <h1 class="text-center">Dashboard</h1>
     <div class="row">

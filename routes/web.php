@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pengeluaran', PengeluaranController::class);
 
     Route::resource('bankaccounts', BankAccountController::class);
-    Route::get('/bankaccounts/pdf', [BankAccountController::class, 'exportPdf'])->name('bankaccounts.export_pdf');
+    Route::get('/bankaccounts/pdf', [BankAccountController::class, 'exportPdf'])->name('bankaccounts.pdf');
 
     // Routing API Transaction
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
@@ -53,14 +53,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/transactions/search', [TransactionController::class, 'search'])->name('transactions.search');
 
     Route::prefix('tagihan')->name('tagihan.')->group(function () {
-    Route::get('/', [TagihanController::class, 'index'])->name('index');
-    Route::get('/create', [TagihanController::class, 'create'])->name('create');
-    Route::post('/store', [TagihanController::class, 'store'])->name('store');
-    Route::get('/{id}/edit', [TagihanController::class, 'edit'])->name('edit');
-    Route::put('/{id}/update', [TagihanController::class, 'update'])->name('update');
-    Route::delete('/{id}/destroy', [TagihanController::class, 'destroy'])->name('destroy');
-    Route::post('/{id}/mark-as-paid', [TagihanController::class, 'markAsPaid'])->name('markAsPaid');
-    });
+        Route::get('/', [TagihanController::class, 'index'])->name('index');
+        Route::get('/create', [TagihanController::class, 'create'])->name('create');
+        Route::post('/store', [TagihanController::class, 'store'])->name('store');
+        Route::get('/{tagihan}/edit', [TagihanController::class, 'edit'])->name('edit');
+        Route::get('/{tagihan}', [TagihanController::class, 'show'])->name('show');
+        Route::put('/{tagihan}', [TagihanController::class, 'update'])->name('update');
+        Route::delete('/{tagihan}', [TagihanController::class, 'destroy'])->name('destroy');
+        Route::get('/export-pdf', [TagihanController::class, 'exportPdf'])->name('exportPdf');
+        });
         
 
     // Routing API Laporan

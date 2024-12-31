@@ -11,7 +11,7 @@
 <body>
     <nav>
         <div class="nav__logo">BUKUSISTA<span>.</span></div>
-        <button class="btn">Login</button>
+        <button class="btn" onclick="window.location='{{ route('login') }}'">Login</button>
     </nav>
     <header>
         <div class="section__container header__container">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bankaccount;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BankAccountController extends Controller
 {
@@ -90,5 +91,15 @@ class BankAccountController extends Controller
     {
         $bankaccount->delete();
         return redirect()->route('bankaccounts.index')->with('Success','Bank Account berhasil dihapus');
+    }
+
+    // Metode export ke PDF
+    public function exportPdf()
+    {
+        $bankaccounts = BankAccount::all();
+
+        $pdf = Pdf::loadView('bankaccounts.pdf', compact('bankaccounts'));
+
+        return $pdf->download('bankaccounts.pdf');
     }
 }

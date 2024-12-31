@@ -88,6 +88,9 @@
             <h4>BUKU SISTA</h4>
             <ul class="nav flex-column">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('pemasukan.index') }}"><i class="fas fa-dollar-sign"></i> Pemasukan</a>
                 </li>
                 <li class="nav-item">

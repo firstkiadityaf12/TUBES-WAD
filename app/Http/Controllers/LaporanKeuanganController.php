@@ -140,4 +140,11 @@ class LaporanKeuanganController extends Controller
         $pdf = Pdf::loadView('laporan_keuangan.pdf', compact('laporan'));
         return $pdf->download('laporan_keuangan.pdf');
     }
+
+    public function chart()
+    {
+        $laporan = LaporanKeuangan::select('periode_laporan', 'total_pemasukan', 'total_pengeluaran', 'saldo_akhir')->get();
+        return view('laporan_keuangan.chart', compact('laporan'));
+    }
+
 }

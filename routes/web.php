@@ -65,6 +65,8 @@ Route::get('/laporan_keuangan/{id}/edit', [LaporanKeuanganController::class, 'ed
 Route::put('/laporan_keuangan/{id}', [LaporanKeuanganController::class, 'update'])->name('laporan_keuangan.update');
 Route::delete('/laporan_keuangan/{id}', [LaporanKeuanganController::class, 'destroy'])->name('laporan_keuangan.destroy');
 Route::get('/laporan_keuangan/pdf', [LaporanKeuanganController::class, 'exportPdf'])->name('laporan_keuangan.export_pdf');
+Route::get('/laporan_keuangan/chart', [LaporanKeuanganController::class, 'chart'])->name('laporan_keuangan.chart');
+
 
 
 

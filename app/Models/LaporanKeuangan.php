@@ -18,11 +18,13 @@ class LaporanKeuangan extends Model
         'tanggal_pembuatan',
         'tanggal_diubah',
     ];
+    protected $primaryKey = 'id';
     public function transaksiKeuangan()
     {
         return $this->hasMany(TransaksiKeuangan::class, 'id_laporan', 'id_laporan');
     }
     public $timestamps = true;
+    
 
     protected $dates = ['tanggal_pembuatan','tanggal_diubah'];
 }

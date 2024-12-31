@@ -28,14 +28,23 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $user = DB::table('loginregister')->where('email', $request->email)->first();
+        $credentials = $request->only('email', 'password');
 
-        if ($user && Hash::check($request->password, $user->password)) {
-        Auth::loginUsingId($user->id);
-        return redirect()->route('dashboard')->with('success', 'Berhasil login!');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate(); // Regenerate session
+            return redirect()->route('dashboard.index')->with('success', 'Berhasil login!');
         }
+    
+        return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
 
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        // $user = DB::table('loginregister')->where('email', $request->email)->first();
+
+        // if ($user && Hash::check($request->password, $user->password)) {
+        // Auth::loginUsingId($user->id);
+        // return redirect()->route('dashboard.index')->with('success', 'Berhasil login!');
+        // }
+
+        // return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
     /**

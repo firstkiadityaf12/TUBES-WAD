@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\PemasukanController;
@@ -9,12 +11,12 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
-Route::get('/', function () {
-    return redirect()->route('pemasukan.index');
-});
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 // Routing API Pemasukan
 Route::resource('pemasukan', PemasukanController::class);
@@ -82,8 +84,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route untuk dashboard (hanya user login yang bisa akses)
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard'); // Pastikan view dashboard ada
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 });
 

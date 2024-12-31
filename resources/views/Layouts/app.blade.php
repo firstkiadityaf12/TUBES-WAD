@@ -83,38 +83,58 @@
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
+        @auth
         <div class="sidebar">
             <h4>BUKU SISTA</h4>
             <ul class="nav flex-column">
-                <!-- Pemasukan -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('pemasukan.index') }}"><i class="fas fa-dollar-sign"></i> Pemasukan</a>
                 </li>
-                <!-- Pengeluaran -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('pengeluaran.index') }}"><i class="fas fa-credit-card"></i> Pengeluaran</a>
                 </li>
-                <!-- Transaksi -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('transactions.index') }}"><i class="fas fa-credit-card"></i> Transaksi</a>
                 </li>
-                <!-- Bank Account -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('bankaccounts.index') }}"><i class="fas fa-credit-card"></i> Akun Bank</a>
                 </li>
-                <!-- Tagihan -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('tagihan.index') }}"><i class="fas fa-credit-card"></i> Tagihan</a>
                 </li>
-                <!-- Laporan Keuangan -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('laporan_keuangan.index') }}"><i class="fas fa-credit-card"></i> Laporan Keuangan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Tentang</a>
+                    <a class="nav-link" href="{{ route('logout') }}" 
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </ul>
+        </div>
+        @endauth
+
+        @guest
+        <div class="sidebar">
+            <h4>BUKU SISTA</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Register</a>
                 </li>
             </ul>
         </div>
+        @endguest
+
 
         <!-- Main Content -->
         <div class="container custom-container flex-grow-1">

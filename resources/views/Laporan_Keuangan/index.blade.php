@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between mb-3">
         <a href="{{ route('laporan_keuangan.create') }}" class="btn btn-success">Tambah Laporan Keuangan</a>
         <a href="{{ route('laporan_keuangan.chart') }}" class="btn btn-info">Tampilkan Grafik</a>
-        <a href="{{ route('laporan_keuangan.export_pdf') }}" class="btn btn-danger">Export PDF</a>
+        <a href="{{ route('laporan_keuangan.pdf') }}" class="btn btn-danger">Export PDF</a>
     </div>
     <table class="table table-bordered">
         <thead>

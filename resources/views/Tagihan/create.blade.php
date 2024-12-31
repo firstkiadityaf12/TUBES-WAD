@@ -56,22 +56,38 @@
         <!-- Status Tagihan -->
         <div class="mb-3">
             <label for="status" class="form-label">Status Tagihan</label>
-            <input
-                type="text"
+            <select
                 class="form-control"
                 id="status"
                 name="status"
                 required
-                placeholder="Masukkan status tagihan (contoh: belum lunas atau lunas)"
-                title="Masukkan status tagihan, apakah sudah dibayar atau belum."
+                title="Pilih status tagihan, apakah sudah dibayar atau belum."
             >
-            <small class="form-text text-muted">Masukkan status tagihan, contoh: belum lunas atau lunas.</small>
+                <option value="" disabled selected>Pilih status tagihan</option>
+                <option value="dibayar">Dibayar</option>
+                <option value="belum dibayar">Belum Dibayar</option>
+            </select>
+            <small class="form-text text-muted">Pilih status tagihan, apakah sudah dibayar atau belum.</small>
+        </div>
+
+        <!-- Catatan -->
+        <div class="mb-3">
+            <label for="catatan" class="form-label">Catatan</label>
+            <textarea
+                class="form-control"
+                id="catatan"
+                name="catatan"
+                maxlength="255"
+                placeholder="Masukkan catatan tambahan (opsional)."
+            ></textarea>
+            <small class="form-text text-muted">Opsional: Tambahkan informasi tambahan untuk tagihan.</small>
         </div>
 
         <!-- Akun Bank -->
         <div class="mb-3">
             <label for="id_akun_bank">Akun Bank</label>
             <select name="id_akun_bank" id="id_akun_bank" class="form-control" required>
+                <option value="" disabled selected>Pilih akun bank</option>
                 @foreach ($akunBanks as $bank)
                     <option value="{{ $bank->id }}">{{ $bank->nama_bank }}</option>
                 @endforeach

@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Tagihan</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -13,14 +21,16 @@
             border: 1px solid black;
             padding: 8px;
             text-align: center;
+            font-size: 14px;
         }
         th {
             background-color: #f2f2f2;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h2 style="text-align: center;">Daftar Tagihan</h2>
+    <h2>Daftar Tagihan</h2>
     <table>
         <thead>
             <tr>
@@ -33,16 +43,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tagihans as $tagihan)
+            @forelse($tagihans as $tagihan)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $tagihan->nama_tagihan }}</td>
                     <td>{{ $tagihan->tanggal_jatuh_tempo }}</td>
-                    <td>{{ number_format($tagihan->jumlah_tagihan, 0, ',', '.') }}</td>
+                    <td>Rp{{ number_format($tagihan->jumlah_tagihan, 0, ',', '.') }}</td>
                     <td>{{ ucfirst($tagihan->status) }}</td>
                     <td>{{ $tagihan->akunBank->nama_bank ?? '-' }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6">Tidak ada data tagihan.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </body>

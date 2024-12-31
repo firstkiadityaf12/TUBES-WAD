@@ -132,9 +132,9 @@ class TagihanController extends Controller
 
         $tagihans = $query->get();
 
-        $pdf = \Pdf::loadView('tagihan.pdf', compact('tagihans'))
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('tagihan.pdf', compact('tagihans'))
             ->setPaper('a4', 'landscape');
 
-        return $pdf->download('tagihan.pdf');
+        return $pdf->download('daftar_tagihan.pdf');
     }
 }

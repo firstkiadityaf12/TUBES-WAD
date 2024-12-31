@@ -58,8 +58,13 @@ Route::post('/{id}/mark-as-paid', [TagihanController::class, 'markAsPaid'])->nam
 });
 
 // Routing API Laporan
-Route::resource('laporan_keuangan', LaporanKeuanganController::class);
-Route::get('laporan_keuangan/{laporan}/transaksi', [LaporanKeuanganController::class, 'showTransactions'])->name('laporan_keuangan.transactions');
-Route::get('laporan_keuangan/filter/{periode}', [LaporanKeuanganController::class, 'filterByPeriod'])->name('laporan_keuangan.filter');
-Route::get('laporan_keuangan/export', [LaporanKeuanganController::class, 'export'])->name('laporan_keuangan.export');
+Route::get('/laporan_keuangan', [LaporanKeuanganController::class, 'index'])->name('laporan_keuangan.index');
+Route::get('/laporan_keuangan/create', [LaporanKeuanganController::class, 'create'])->name('laporan_keuangan.create');
+Route::post('/laporan_keuangan', [LaporanKeuanganController::class, 'store'])->name('laporan_keuangan.store');
+Route::get('/laporan_keuangan/{id}/edit', [LaporanKeuanganController::class, 'edit'])->name('laporan_keuangan.edit');
+Route::put('/laporan_keuangan/{id}', [LaporanKeuanganController::class, 'update'])->name('laporan_keuangan.update');
+Route::delete('/laporan_keuangan/{id}', [LaporanKeuanganController::class, 'destroy'])->name('laporan_keuangan.destroy');
+Route::get('/laporan_keuangan/pdf', [LaporanKeuanganController::class, 'exportPdf'])->name('laporan_keuangan.export_pdf');
+
+
 

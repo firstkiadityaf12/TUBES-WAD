@@ -1,9 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="text-center text-black container">
+<div class="text-black container">
 <h1 class="text-black">{{ $nav }}</h1>
-    <a href="{{ route('laporan_keuangan.create') }}" class="btn btn-success mb-3">Tambah Laporan Keuangan</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ route('laporan_keuangan.create') }}" class="btn btn-success">Tambah Laporan Keuangan</a>
+        <a href="{{ route('laporan_keuangan.export_pdf') }}" class="btn btn-danger">Export PDF</a>
+    </div>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -12,6 +15,7 @@
                 <th>Total Pemasukan</th>
                 <th>Total Pengeluaran</th>
                 <th>Saldo Akhir</th>
+                <th>Catatan</th>
                 <th>Tanggal Dibuat</th>
                 <th>Tanggal Diubah</th>
                 <th>Aksi</th>
@@ -25,6 +29,7 @@
                 <td>{{ 'Rp' . number_format($item->total_pemasukan, 0, ',', '.') }}</td>
                 <td>{{ 'Rp' . number_format($item->total_pengeluaran, 0, ',', '.') }}</td>
                 <td>{{ 'Rp' . number_format($item->saldo_akhir, 0, ',', '.') }}</td>
+                <td>{{ $item->catatan ?? '-' }}</td> <!-- Tambahkan kolom catatan -->
                 <td>{{ $item->tanggal_pembuatan ?? '-' }}</td>
                 <td>{{ $item->tanggal_diubah ?? '-' }}</td>
                 <td>

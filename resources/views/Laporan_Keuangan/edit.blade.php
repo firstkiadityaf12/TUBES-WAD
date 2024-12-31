@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <a href="{{ route('laporan_keuangan.index') }}" class="btn btn-secondary mb-3">Kembali</a>
     <h1 class="text-center text-black">Edit Laporan Keuangan</h1>
     <form action="{{ route('laporan_keuangan.update', $laporanKeuangan->id) }}" method="POST">
         @csrf

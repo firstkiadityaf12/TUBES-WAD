@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\LaporanKeuangan;
 use App\Models\Pemasukan;
 use App\Models\Pengeluaran;
+use App\Models\TransaksiKeuangan;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanKeuanganController extends Controller
 {
@@ -19,12 +21,14 @@ class LaporanKeuanganController extends Controller
     public function create()
     {
         $nav = 'Tambah Laporan Keuangan';
-    $periodePemasukan = Pemasukan::selectRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pemasukan, '%Y-%m-%d'), '%Y-%m') as periode")
+        $periodePemasukan = TransaksiKeuangan::where('kategori', 'pemasukan')
+        ->selectRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as periode")
         ->distinct()
         ->pluck('periode')
         ->toArray();
-    
-    $periodePengeluaran = Pengeluaran::selectRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pengeluaran, '%Y-%m-%d'), '%Y-%m') as periode")
+
+        $periodePengeluaran = TransaksiKeuangan::where('kategori', 'pengeluaran')
+        ->selectRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') as periode")
         ->distinct()
         ->pluck('periode')
         ->toArray();
@@ -32,8 +36,21 @@ class LaporanKeuanganController extends Controller
         $periode = collect(array_unique(array_merge($periodePemasukan, $periodePengeluaran)))
         ->sort()
         ->values();
+        // $periodePemasukan = Pemasukan::selectRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pemasukan, '%Y-%m-%d'), '%Y-%m') as periode")
+        // ->distinct()
+        // ->pluck('periode')
+        // ->toArray();
+    
+        // $periodePengeluaran = Pengeluaran::selectRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pengeluaran, '%Y-%m-%d'), '%Y-%m') as periode")
+        // ->distinct()
+        // ->pluck('periode')
+        // ->toArray();
 
-    return view('laporan_keuangan.create', ['nav' => $nav, 'periode' => $periode]);
+        // $periode = collect(array_unique(array_merge($periodePemasukan, $periodePengeluaran)))
+        // ->sort()
+        // ->values();
+
+        return view('laporan_keuangan.create', ['nav' => $nav, 'periode' => $periode]);
     }
 
     public function store(Request $request)
@@ -44,12 +61,20 @@ class LaporanKeuanganController extends Controller
         ]);
     
         $periode = $request->periode_laporan;
+
+        $totalPemasukan = TransaksiKeuangan::where('kategori', 'pemasukan')
+        ->whereRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') = ?", [$periode])
+        ->sum('jumlah');
+
+        $totalPengeluaran = TransaksiKeuangan::where('kategori', 'pengeluaran')
+        ->whereRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') = ?", [$periode])
+        ->sum('jumlah');
     
-        $totalPemasukan = Pemasukan::whereRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pemasukan, '%Y-%m-%d'), '%Y-%m') = ?", [$periode])
-            ->sum('jumlah_pemasukan');
+        // $totalPemasukan = Pemasukan::whereRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pemasukan, '%Y-%m-%d'), '%Y-%m') = ?", [$periode])
+        //     ->sum('jumlah_pemasukan');
     
-        $totalPengeluaran = Pengeluaran::whereRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pengeluaran, '%Y-%m-%d'), '%Y-%m') = ?", [$periode])
-            ->sum('jumlah_pengeluaran');
+        // $totalPengeluaran = Pengeluaran::whereRaw("DATE_FORMAT(STR_TO_DATE(tanggal_pengeluaran, '%Y-%m-%d'), '%Y-%m') = ?", [$periode])
+        //     ->sum('jumlah_pengeluaran');
     
         $saldoAkhir = $totalPemasukan - $totalPengeluaran;
 
@@ -79,9 +104,10 @@ class LaporanKeuanganController extends Controller
         return redirect()->route('laporan_keuangan.index')->with('success', 'Laporan Keuangan berhasil ditambahkan.');
     }
 
-    public function edit(LaporanKeuangan $laporanKeuangan)
+    public function edit($id)
     {
-        return view('laporan_keuangan.edit', compact('laporanKeuangan'));
+        $laporan = LaporanKeuangan::findOrFail($id);
+        return view('laporan_keuangan.edit', compact('laporan'));
     }
 
     public function update(Request $request, $id)
@@ -101,9 +127,17 @@ class LaporanKeuanganController extends Controller
         return redirect()->route('laporan_keuangan.index')->with('success', 'Laporan Keuangan berhasil diperbarui.');
     }
 
-    public function destroy(LaporanKeuangan $laporanKeuangan)
+    public function destroy($id)
     {
-        $laporanKeuangan->delete();
+        $laporan = LaporanKeuangan::findOrFail($id);
+        $laporan->delete();
         return redirect()->route('laporan_keuangan.index')->with('success', 'Laporan Keuangan berhasil dihapus.');
+    }
+
+    public function exportPdf()
+    {
+        $laporan = LaporanKeuangan::all();
+        $pdf = Pdf::loadView('laporan_keuangan.pdf', compact('laporan'));
+        return $pdf->download('laporan_keuangan.pdf');
     }
 }

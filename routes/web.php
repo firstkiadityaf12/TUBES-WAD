@@ -66,6 +66,14 @@ Route::put('/laporan_keuangan/{id}', [LaporanKeuanganController::class, 'update'
 Route::delete('/laporan_keuangan/{id}', [LaporanKeuanganController::class, 'destroy'])->name('laporan_keuangan.destroy');
 Route::get('/laporan_keuangan/pdf', [LaporanKeuanganController::class, 'exportPdf'])->name('laporan_keuangan.export_pdf');
 Route::get('/laporan_keuangan/chart', [LaporanKeuanganController::class, 'chart'])->name('laporan_keuangan.chart');
+Route::get('/laporan_keuangan/{id}/show', [LaporanKeuanganController::class, 'show'])->name('laporan_keuangan.show');
+Route::get('/laporan_keuangan/{id}/export_detail_pdf', [LaporanKeuanganController::class, 'exportDetailPdf'])->name('laporan_keuangan.export_detail_pdf');
+
+
+
+
+
+
 
 
 

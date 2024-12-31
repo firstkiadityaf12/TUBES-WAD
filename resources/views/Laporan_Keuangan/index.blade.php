@@ -34,6 +34,7 @@
                 <td>{{ $item->tanggal_pembuatan ?? '-' }}</td>
                 <td>{{ $item->tanggal_diubah ?? '-' }}</td>
                 <td>
+                    <a href="{{ route('laporan_keuangan.show', $item->id) }}" class="btn btn-info btn-sm">Lihat</a>
                     <a href="{{ route('laporan_keuangan.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
                     <form action="{{ route('laporan_keuangan.destroy', $item->id) }}" method="POST" style="display:inline;">
                         @csrf

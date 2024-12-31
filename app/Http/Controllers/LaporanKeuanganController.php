@@ -141,10 +141,41 @@ class LaporanKeuanganController extends Controller
         return $pdf->download('laporan_keuangan.pdf');
     }
 
+    public function exportDetailPdf($id)
+    {
+
+        $laporan = LaporanKeuangan::findOrFail($id);
+    
+        $pemasukan = TransaksiKeuangan::where('kategori', 'pemasukan')
+            ->whereRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') = ?", [$laporan->periode_laporan])
+            ->get();
+    
+        $pengeluaran = TransaksiKeuangan::where('kategori', 'pengeluaran')
+            ->whereRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') = ?", [$laporan->periode_laporan])
+            ->get();
+        $pdf = Pdf::loadView('laporan_keuangan.detail_pdf', compact('laporan', 'pemasukan', 'pengeluaran'));
+
+        return $pdf->download('laporan_detail_' . $laporan->periode_laporan . '.pdf');
+    }
+
     public function chart()
     {
         $laporan = LaporanKeuangan::select('periode_laporan', 'total_pemasukan', 'total_pengeluaran', 'saldo_akhir')->get();
         return view('laporan_keuangan.chart', compact('laporan'));
     }
 
+    public function show($id)
+    {
+
+        $laporan = LaporanKeuangan::findOrFail($id);
+        $pemasukan = TransaksiKeuangan::where('kategori', 'pemasukan')
+            ->whereRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') = ?", [$laporan->periode_laporan])
+            ->get();
+
+        $pengeluaran = TransaksiKeuangan::where('kategori', 'pengeluaran')
+            ->whereRaw("DATE_FORMAT(tanggal_transaksi, '%Y-%m') = ?", [$laporan->periode_laporan])
+            ->get();
+
+        return view('laporan_keuangan.show', compact('laporan', 'pemasukan', 'pengeluaran'));
+    }
 }

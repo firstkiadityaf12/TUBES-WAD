@@ -56,20 +56,15 @@ Route::get('/transactions/search', [TransactionController::class, 'search'])->na
 Route::resource('bankaccounts', BankAccountController::class);
 
 // Routing API Tagihan
-// Route::resource('tagihan', TagihanController::class);
-// Route::get('tagihan/{tagihan}/read', [TagihanController::class, 'read'])->name('tagihan.read');
-// Route::get('tagihan/status/{status}', [TagihanController::class, 'filterByStatus'])->name('tagihan.filterByStatus');
-// Route::get('tagihan/jenis/{jenis}', [TagihanController::class, 'filterByType'])->name('tagihan.filterByType');
-// Route::get('tagihan/laporan', [TagihanController::class, 'generateReport'])->name('tagihan.laporan');
-// Route::post('tagihan/{tagihan}/bayar', [TagihanController::class, 'pay'])->name('tagihan.pay');
 Route::prefix('tagihan')->name('tagihan.')->group(function () {
 Route::get('/', [TagihanController::class, 'index'])->name('index');
 Route::get('/create', [TagihanController::class, 'create'])->name('create');
 Route::post('/store', [TagihanController::class, 'store'])->name('store');
-Route::get('/{id}/edit', [TagihanController::class, 'edit'])->name('edit');
-Route::put('/{id}/update', [TagihanController::class, 'update'])->name('update');
-Route::delete('/{id}/destroy', [TagihanController::class, 'destroy'])->name('destroy');
-Route::post('/{id}/mark-as-paid', [TagihanController::class, 'markAsPaid'])->name('markAsPaid');
+Route::get('/{tagihan}/edit', [TagihanController::class, 'edit'])->name('edit');
+Route::get('/{tagihan}', [TagihanController::class, 'show'])->name('show');
+Route::put('/{tagihan}', [TagihanController::class, 'update'])->name('update');
+Route::delete('/{tagihan}', [TagihanController::class, 'destroy'])->name('destroy');
+Route::get('/export-pdf', [TagihanController::class, 'exportPdf'])->name('exportPdf');
 });
 
 // Routing API Laporan

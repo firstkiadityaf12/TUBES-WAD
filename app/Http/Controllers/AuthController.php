@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,46 +19,27 @@ class AuthController extends Controller
         return view('login'); // Mengarahkan ke login.blade.php
     }
 
-    /**
-     * Proses login user
-     */
     public function login(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate(); // Regenerate session
+        $user = DB::table('loginregister')->where('email', $request->email)->first();
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::loginUsingId($user->id);
+            $request->session()->regenerate();
             return redirect()->route('dashboard.index')->with('success', 'Berhasil login!');
+        } else {
+            return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
         }
-    
-        return back()->withErrors(['email' => 'Email atau password salah.'])->withInput();
-
-        // $user = DB::table('loginregister')->where('email', $request->email)->first();
-
-        // if ($user && Hash::check($request->password, $user->password)) {
-        // Auth::loginUsingId($user->id);
-        // return redirect()->route('dashboard.index')->with('success', 'Berhasil login!');
-        // }
-
-        // return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
-    /**
-     * Menampilkan form registrasi
-     */
     public function showRegisterForm()
     {
-        return view('register'); // Mengarahkan ke register.blade.php
+        return view('register');
     }
 
-    /**
-     * Proses registrasi user
-     */
     public function register(Request $request)
     {
         $request->validate([

@@ -4,6 +4,7 @@
 <div class="container">
     <h1>{{ $nav }}</h1>
     <a href="{{ route('bankaccounts.create') }}" class="btn btn-success mb-3">Tambah Bank Account</a>
+    <a href="{{ route('bankaccounts.export_pdf') }}" class="btn btn-danger mb-3">Export PDF</a>
     <table class="table table-bordered">
         <thead>
             <tr>

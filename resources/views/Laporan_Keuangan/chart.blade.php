@@ -5,6 +5,11 @@
     <h1 class="text-center">Grafik Laporan Keuangan</h1>
     <canvas id="keuanganChart" width="400" height="200"></canvas>
 </div>
+<style>
+    body, h1, ul, table, th, td, a {
+        color: black;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>

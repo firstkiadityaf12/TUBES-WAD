@@ -2,6 +2,10 @@
 
 @section('content')
     <style>
+
+        body, h1, ul, table, th, td, a {
+            color: black;
+        }
         label {
             display: block;
             font-size: 1.5rem;

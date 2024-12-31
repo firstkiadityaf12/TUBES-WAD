@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    body, h1, ul, table, th, td, a {
+        color: black;
+    }
+</style>
 <div class="container">
     <a href="{{ route('laporan_keuangan.index') }}" class="btn btn-secondary mb-3">Kembali</a>
     <h1 class="text-center text-black">Edit Laporan Keuangan</h1>

@@ -8,12 +8,16 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\HomeController;
 
 
 // Route ke halaman utama (opsional, bisa diarahkan ke Pemasukan)
-Route::get('/', function () {
-    return redirect()->route('pemasukan.index');
-});
+// Route::get('/', function () {
+//     return redirect()->route('pemasukan.index');
+// });
+
+// landing page
+Route::get('home', [HomeController::class, 'index'])->name('home');
 
 // Routing API Pemasukan
 Route::resource('pemasukan', PemasukanController::class);
